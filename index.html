@@ -945,17 +945,7 @@
             dom['input-gm'].value = gm_uS.toFixed(1);
             saveCurrentInputsAndCalculate();
            // if (dom['gm-helper-card']) dom['gm-helper-card'].classList.add('hidden');
-        }
-
-        // Press Enter to apply calculated gm
-['calc-gm-icp', 'calc-gm-vov'].forEach(id => {
-    dom[id].addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            applyCalculatedGm();
-        }
-    });
-});        
+        }     
 
         function switchWorkspaceTab(tab) {
             appState.currentWorkspaceTab = tab;
@@ -2111,6 +2101,18 @@
             renderClosedLoopDiagram();
             updateFcChips();
             setupSteppers();
+
+                // 加在這裡
+    ['calc-gm-icp', 'calc-gm-vov'].forEach(id => {
+        dom[id].addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                applyCalculatedGm();
+            }
+        });
+    });
+
+            
             switchWorkspaceTab(appState.currentWorkspaceTab || 'bode');
             calculate();
             typesetMath();
