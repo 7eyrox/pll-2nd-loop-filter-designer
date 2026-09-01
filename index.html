@@ -2095,6 +2095,15 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             initDOMCache();
+
+            dom['calc-gm-icp'].addEventListener('keydown', function(e) {
+                if (e.key === 'Tab' && !e.shiftKey) {
+                    e.preventDefault();
+                    dom['calc-gm-vov'].focus();
+                    dom['calc-gm-vov'].select();
+                    }
+            });
+            
             syncStateToInputs();
             renderMethodButtons();
             updateMethodUI();
@@ -2102,15 +2111,14 @@
             updateFcChips();
             setupSteppers();
 
-                // 加在這裡
-    ['calc-gm-icp', 'calc-gm-vov'].forEach(id => {
-        dom[id].addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                applyCalculatedGm();
-            }
-        });
-    });
+            ['calc-gm-icp', 'calc-gm-vov'].forEach(id => {
+                dom[id].addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        applyCalculatedGm();
+                    }
+                });
+            });
 
             
             switchWorkspaceTab(appState.currentWorkspaceTab || 'bode');
