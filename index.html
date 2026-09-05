@@ -328,6 +328,170 @@
     }
 }
 
+
+/* v47 — Design Validity */
+#design-validity-card {
+    font-size: 0.75rem;
+}
+#design-validity-card .text-\[10\.5px\],
+#design-validity-card .text-\[12px\] {
+    font-size: 0.75rem !important;
+    line-height: 1.5 !important;
+}
+#design-validity-list > div {
+    min-height: 5.15rem;
+}
+
+
+
+/* v52 — unified stale state for Sweep-derived results */
+#bandwidth-sweep-card .sweep-results-outdated {
+    border-color: rgb(225 29 72 / 0.72) !important;
+    box-shadow: 0 0 0 1px rgb(225 29 72 / 0.16) inset;
+}
+#sweep-summary-results.sweep-results-outdated > div {
+    border-color: rgb(225 29 72 / 0.62) !important;
+    background: rgb(76 5 25 / 0.16) !important;
+}
+#sweep-optimum-status-card.sweep-results-outdated {
+    background: rgb(76 5 25 / 0.12) !important;
+}
+
+
+/* v63 — Estimate parameter grid: roomier CPPLL, unchanged SSPLL geometry */
+#estimate-parameter-grid {
+    align-items: stretch;
+    --estimate-card-h: 96px;
+    --estimate-gap: 12px;
+    gap: var(--estimate-gap);
+}
+
+#estimate-parameter-grid .estimate-param-card {
+    height: var(--estimate-card-h);
+    min-height: var(--estimate-card-h);
+    max-height: var(--estimate-card-h);
+    display: grid;
+    grid-template-rows: 22px 34px;
+    align-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+}
+
+#estimate-parameter-grid .estimate-param-card label {
+    height: 22px;
+    line-height: 22px;
+    margin: 0 !important;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#estimate-parameter-grid .estimate-param-card input {
+    width: 100%;
+    height: 34px;
+    min-height: 34px;
+    max-height: 34px;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 34px;
+    box-sizing: border-box;
+}
+
+#estimate-param-help {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#estimate-param-help-title {
+    line-height: 18px;
+}
+
+#estimate-param-help-body {
+    line-height: 1.5;
+}
+
+/* CPPLL: 8 parameters + help = roomy 3 x 3 grid with visible separation */
+#estimate-parameter-grid:not(.sspll-layout) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: var(--estimate-card-h);
+}
+
+#estimate-parameter-grid:not(.sspll-layout) #estimate-param-help {
+    height: var(--estimate-card-h);
+    min-height: var(--estimate-card-h);
+    max-height: var(--estimate-card-h);
+    padding: 12px 14px;
+}
+
+/* SSPLL keeps the v62 layout exactly: six equal cards at left (3 x 2),
+   help panel at right spanning exactly both rows. */
+#estimate-parameter-grid.sspll-layout {
+    --estimate-card-h: 78px;
+    --estimate-gap: 10px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, var(--estimate-card-h));
+    gap: var(--estimate-gap);
+}
+
+#estimate-parameter-grid.sspll-layout .estimate-param-card {
+    grid-template-rows: 20px 32px;
+    gap: 5px;
+}
+
+#estimate-parameter-grid.sspll-layout .estimate-param-card label {
+    height: 20px;
+    line-height: 20px;
+}
+
+#estimate-parameter-grid.sspll-layout .estimate-param-card input {
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    line-height: 32px;
+}
+
+#estimate-parameter-grid.sspll-layout [data-help-key="ref-floor"] { grid-column: 1; grid-row: 1; }
+#estimate-parameter-grid.sspll-layout [data-help-key="ref-flicker"] { grid-column: 2; grid-row: 1; }
+#estimate-parameter-grid.sspll-layout [data-help-key="det-floor"] { grid-column: 3; grid-row: 1; }
+#estimate-parameter-grid.sspll-layout [data-help-key="det-flicker"] { grid-column: 1; grid-row: 2; }
+#estimate-parameter-grid.sspll-layout [data-help-key="vco-anchor"] { grid-column: 2; grid-row: 2; }
+#estimate-parameter-grid.sspll-layout [data-help-key="vco-flicker"] { grid-column: 3; grid-row: 2; }
+
+#estimate-parameter-grid.sspll-layout #estimate-param-help {
+    grid-column: 4;
+    grid-row: 1 / 3;
+    height: calc(var(--estimate-card-h) * 2 + var(--estimate-gap));
+    min-height: calc(var(--estimate-card-h) * 2 + var(--estimate-gap));
+    max-height: calc(var(--estimate-card-h) * 2 + var(--estimate-gap));
+    align-self: stretch;
+    justify-self: stretch;
+}
+
+@media (max-width: 1023px) {
+    #estimate-parameter-grid,
+    #estimate-parameter-grid.sspll-layout {
+        --estimate-card-h: 88px;
+        --estimate-gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: none;
+        grid-auto-rows: var(--estimate-card-h);
+    }
+
+    #estimate-parameter-grid.sspll-layout .estimate-param-card,
+    #estimate-parameter-grid.sspll-layout #estimate-param-help {
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
+
+    #estimate-parameter-grid #estimate-param-help,
+    #estimate-parameter-grid.sspll-layout #estimate-param-help {
+        height: calc(var(--estimate-card-h) * 2 + var(--estimate-gap));
+        min-height: calc(var(--estimate-card-h) * 2 + var(--estimate-gap));
+        max-height: calc(var(--estimate-card-h) * 2 + var(--estimate-gap));
+    }
+}
+
 </style>
 </head>
 <body class="bg-[#090d16] text-slate-200 antialiased h-screen overflow-hidden flex flex-col justify-between selection:bg-cyan-500 selection:text-white text-xs sm:text-sm">
@@ -336,8 +500,8 @@
     <header class="bg-[#0f172a]/95 text-white shadow-xl border-b border-slate-800/80 z-50 backdrop-blur-md flex-shrink-0">
         <div class="max-w-[1880px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap justify-between items-center gap-3">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center shadow-md shadow-cyan-500/20 flex-shrink-0">
-                    <i class="fa-solid fa-wave-square text-white text-lg"></i>
+                <div class="w-11 h-11 flex items-center justify-center flex-shrink-0" title="PLL Designer">
+                    <img src="./favicon.png" alt="PLL Designer" class="w-11 h-11 object-contain rounded-[10px] select-none pointer-events-none" draggable="false">
                 </div>
                 <div>
                     <h1 class="text-base sm:text-lg font-bold flex items-center gap-2 text-slate-100">
@@ -403,9 +567,18 @@
                         <h2 class="text-xs sm:text-sm font-bold text-slate-100 flex items-center gap-2">
                             <i class="fa-solid fa-gear text-cyan-400"></i> 電路系統規格參數
                         </h2>
-                        <span class="text-[10px] font-mono text-emerald-400 flex items-center gap-1 font-medium bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-800/50">
-                            <i class="fa-solid fa-floppy-disk text-[9px]"></i> 即時記憶已啟用
-                        </span>
+                        <div class="flex flex-wrap items-center justify-end gap-1.5">
+                            <span id="system-preset-status" class="text-[9.5px] text-slate-500 mr-0.5">內建 Default</span>
+                            <button type="button" id="btn-system-default" onclick="restoreSystemDefaults()" class="px-2 py-1 rounded-md text-[9.5px] font-bold border border-slate-700 bg-slate-900 text-slate-300 hover:text-cyan-300 hover:border-cyan-700 transition" title="恢復目前架構的初始值；若尚未自訂，則使用網頁內建值">
+                                <i class="fa-solid fa-rotate-left mr-1"></i>Default
+                            </button>
+                            <button type="button" id="btn-system-save-preset" onclick="saveSystemPreset()" class="px-2 py-1 rounded-md text-[9.5px] font-bold border border-cyan-800 bg-cyan-950/40 text-cyan-300 hover:border-cyan-500 transition" title="把目前電路系統規格參數存成此架構的自訂初始值">
+                                <i class="fa-solid fa-bookmark mr-1"></i>設為初始值
+                            </button>
+                            <span class="text-[9.5px] font-mono text-emerald-400 flex items-center gap-1 font-medium bg-emerald-950/40 px-2 py-1 rounded border border-emerald-800/50" title="修改後會自動保存目前工作狀態">
+                                <i class="fa-solid fa-floppy-disk text-[9px]"></i> 即時記憶
+                            </span>
+                        </div>
                     </div>
                     
                     <div class="space-y-3 text-xs">
@@ -877,9 +1050,9 @@
                             </div>
 
                             <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3 text-center shadow-md">
-                                <span class="text-[10px] font-semibold uppercase tracking-wider text-cyan-400 block">帶內雜訊底 (In-Band PN)</span>
+                                <span class="text-[10px] font-semibold uppercase tracking-wider text-cyan-400 block">10 kHz Output PN</span>
                                 <p id="val-inband-pn" class="text-lg sm:text-xl font-extrabold text-cyan-300 mt-1 font-mono-num">-- dBc/Hz</p>
-                                <span class="text-[9.5px] text-slate-400 mt-1 block">@ 10 kHz Offset</span>
+                                <span class="text-[9.5px] text-slate-400 mt-1 block">10 kHz ≪ f<sub>c</sub> 時可視為 In-Band PN</span>
                             </div>
 
                             <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3 text-center shadow-md">
@@ -929,48 +1102,46 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
-                                    <div class="bg-slate-950/45 border border-slate-800 rounded-xl p-2.5">
+                                <div id="estimate-parameter-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-xs">
+                                    <div class="estimate-param-card bg-slate-950/45 border border-slate-800 rounded-xl p-2.5" data-help-key="ref-floor">
                                         <label class="block text-[10px] text-slate-300 mb-1">Ref far-out floor (dBc/Hz)</label>
                                         <input type="number" id="input-ref-floor" value="-155" step="1" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-cyan-300 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
-                                        <p class="mt-1.5 text-[9px] text-slate-500 leading-relaxed">Reference source 的白相位雜訊底。<strong class="text-cyan-300">預設 −155</strong>；初步探索可用約 −145 ~ −165 dBc/Hz。最好由晶振/clock buffer phase-noise 規格取得。</p>
                                     </div>
-                                    <div class="bg-slate-950/45 border border-slate-800 rounded-xl p-2.5">
+                                    <div class="estimate-param-card bg-slate-950/45 border border-slate-800 rounded-xl p-2.5" data-help-key="ref-flicker">
                                         <label class="block text-[10px] text-slate-300 mb-1">Ref flicker corner (kHz)</label>
                                         <input type="number" id="input-ref-flicker" value="10" step="1" min="0" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-cyan-300 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
-                                        <p class="mt-1.5 text-[9px] text-slate-500 leading-relaxed">Reference 由 white PN 轉入 flicker-dominated 區的轉折。<strong class="text-cyan-300">預設 10 kHz</strong>；無資料時可先掃 1 ~ 30 kHz 觀察敏感度。</p>
                                     </div>
-                                    <div class="bg-slate-950/45 border border-slate-800 rounded-xl p-2.5">
-                                        <label id="label-det-floor" class="block text-[10px] text-slate-300 mb-1">Detector input-referred floor (dBc/Hz)</label>
+                                    <div class="estimate-param-card bg-slate-950/45 border border-slate-800 rounded-xl p-2.5" data-help-key="det-floor">
+                                        <label id="label-det-floor" class="block text-[10px] text-slate-300 mb-1">PFD/CP input-referred floor (dBc/Hz)</label>
                                         <input type="number" id="input-det-floor" value="-142" step="1" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-blue-300 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
-                                        <p id="help-det-floor" class="mt-1.5 text-[9px] text-slate-500 leading-relaxed">PFD/CP 等效 input-referred phase-noise floor。<strong class="text-blue-300">CP-PLL 預設 −142</strong>；初步可掃 −130 ~ −155 dBc/Hz，最終應由 PNoise input-refer/calibration 取得。</p>
                                     </div>
-                                    <div class="bg-slate-950/45 border border-slate-800 rounded-xl p-2.5">
+                                    <div class="estimate-param-card bg-slate-950/45 border border-slate-800 rounded-xl p-2.5" data-help-key="det-flicker">
                                         <label class="block text-[10px] text-slate-300 mb-1">Detector flicker corner (kHz)</label>
                                         <input type="number" id="input-det-flicker" value="5" step="1" min="0" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-blue-300 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
-                                        <p class="mt-1.5 text-[9px] text-slate-500 leading-relaxed">Detector/CP/SSPD 等效 phase noise 的 flicker 轉折。<strong class="text-blue-300">預設 5 kHz</strong>；無資料可先掃 1 ~ 30 kHz。</p>
                                     </div>
-                                    <div class="bg-slate-950/45 border border-slate-800 rounded-xl p-2.5">
+                                    <div class="estimate-param-card bg-slate-950/45 border border-slate-800 rounded-xl p-2.5" data-help-key="vco-anchor">
                                         <label class="block text-[10px] text-slate-300 mb-1">VCO @ 1 MHz anchor (dBc/Hz)</label>
                                         <input type="number" id="input-vco-1m" value="-120" step="1" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-amber-300 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
-                                        <p class="mt-1.5 text-[9px] text-slate-500 leading-relaxed">Free-running VCO 在 1 MHz offset 的 SSB PN 錨點。<strong class="text-amber-300">預設 −120</strong>；2–3 GHz CMOS LC-VCO 初步探索可用約 −105 ~ −125 dBc/Hz，應優先填實際 PSS/PNoise 值。</p>
                                     </div>
-                                    <div class="bg-slate-950/45 border border-slate-800 rounded-xl p-2.5">
+                                    <div class="estimate-param-card bg-slate-950/45 border border-slate-800 rounded-xl p-2.5" data-help-key="vco-flicker">
                                         <label class="block text-[10px] text-slate-300 mb-1">VCO flicker corner (kHz)</label>
                                         <input type="number" id="input-vco-flicker" value="100" step="10" min="0" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-amber-300 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
-                                        <p class="mt-1.5 text-[9px] text-slate-500 leading-relaxed">VCO phase-noise slope 由約 1/f² 轉向更陡 1/f³ 的近端轉折。<strong class="text-amber-300">預設 100 kHz</strong>；可先掃 30 ~ 300 kHz，最好由 free-running PN 曲線斜率辨識。</p>
                                     </div>
                                     <div id="divider-estimate-fields" class="contents">
-                                        <div class="bg-slate-950/45 border border-violet-900/50 rounded-xl p-2.5">
-                                            <label class="block text-[10px] text-slate-300 mb-1">Divider input-referred floor (dBc/Hz)</label>
+                                        <div class="estimate-param-card bg-slate-950/45 border border-violet-900/50 rounded-xl p-2.5" data-help-key="div-floor">
+                                            <label class="block text-[10px] text-slate-300 mb-1">DIV input-referred floor (dBc/Hz)</label>
                                             <input type="number" id="input-div-floor" value="-150" step="1" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-violet-300 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
-                                            <p class="mt-1.5 text-[9px] text-slate-500 leading-relaxed">CP-PLL feedback divider 在<strong>除頻輸出端</strong>的 additive phase-noise floor。<strong class="text-violet-300">預設 −150</strong>；初步可掃 −135 ~ −160 dBc/Hz。最終應由 divider PSS/PNoise 或 standalone jitter/PN 模擬取得。</p>
                                         </div>
-                                        <div class="bg-slate-950/45 border border-violet-900/50 rounded-xl p-2.5">
-                                            <label class="block text-[10px] text-slate-300 mb-1">Divider flicker corner (kHz)</label>
+                                        <div class="estimate-param-card bg-slate-950/45 border border-violet-900/50 rounded-xl p-2.5" data-help-key="div-flicker">
+                                            <label class="block text-[10px] text-slate-300 mb-1">DIV flicker corner (kHz)</label>
                                             <input type="number" id="input-div-flicker" value="10" step="1" min="0" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-violet-300 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
-                                            <p class="mt-1.5 text-[9px] text-slate-500 leading-relaxed">Divider additive PN 的 flicker 轉折。<strong class="text-violet-300">預設 10 kHz</strong>；無資料時可先掃 1 ~ 100 kHz。SSPLL 主 sampling loop 不使用此項。</p>
                                         </div>
+                                    </div>
+                                    <div id="estimate-param-help" class="rounded-xl border border-cyan-900/60 bg-cyan-950/15 p-3 flex flex-col justify-center transition-colors">
+                                        <div class="flex items-center gap-1.5 text-[10px] font-bold text-cyan-300 mb-1">
+                                            <i class="fa-solid fa-circle-info"></i><span id="estimate-param-help-title">參數說明</span>
+                                        </div>
+                                        <div id="estimate-param-help-body" class="text-[9.5px] text-slate-400 leading-relaxed">將滑鼠移到任一參數欄位，或使用 Tab 聚焦欄位，即可在此查看用途、預設值與建議來源。</div>
                                     </div>
                                 </div>
                             </div>
@@ -987,22 +1158,22 @@
                                     <div class="flex flex-col items-center gap-1.5 pointer-events-none">
                                         <i class="fa-solid fa-cloud-arrow-up text-2xl text-indigo-400 group-hover:text-indigo-300"></i>
                                         <div class="text-xs font-bold text-slate-200">拖曳 CSV / TXT 到這裡，或點擊一次選取多個檔案</div>
-                                        <div class="text-[10px] text-slate-500">可一次拖入 Ref、Detector/CP/SSPD、LPF/R1、VCO；CP-PLL 可再加入 Divider 檔案，會依檔名自動分類</div>
-                                        <div class="text-[10px] text-indigo-300/80">也支援單一 *_all_contributions.csv 合併檔自動拆分（5 欄；CP-PLL 可用含 Divider 的 6 欄）</div>
+                                        <div class="text-[10px] text-slate-500">可一次拖入 Ref、PFD/CP（SSPLL：SSPD/CP）、LF、VCO；CP-PLL 可再加入 DIV 檔案，會依檔名自動分類</div>
+                                        <div class="text-[10px] text-indigo-300/80">也支援單一 *_all_contributions.csv 合併檔自動拆分（5 欄；CP-PLL 可用含 DIV 的 6 欄）</div>
                                     </div>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-2">
                                     <div id="pnoise-card-ref" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80">
-                                        <div class="flex items-center justify-between gap-2"><label class="flex items-center gap-1.5 cursor-pointer"><input id="enable-pnoise-ref" type="checkbox" checked onchange="togglePNoiseContribution('ref',this.checked)" class="accent-cyan-500"><span class="text-[10px] text-cyan-300 font-bold">Reference</span></label><span id="status-pnoise-ref" class="text-[9px] text-slate-500">未加入</span></div>
+                                        <div class="flex items-center justify-between gap-2"><label class="flex items-center gap-1.5 cursor-pointer"><input id="enable-pnoise-ref" type="checkbox" checked onchange="togglePNoiseContribution('ref',this.checked)" class="accent-cyan-500"><span class="text-[10px] text-cyan-300 font-bold">Ref</span></label><span id="status-pnoise-ref" class="text-[9px] text-slate-500">未加入</span></div>
                                         <div id="file-name-pnoise-ref" class="mt-1 text-[9px] text-slate-500 truncate" title="">—</div>
                                     </div>
                                     <div id="pnoise-card-det" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80">
-                                        <div class="flex items-center justify-between gap-2"><label class="flex items-center gap-1.5 cursor-pointer"><input id="enable-pnoise-det" type="checkbox" checked onchange="togglePNoiseContribution('det',this.checked)" class="accent-blue-500"><span class="text-[10px] text-blue-300 font-bold">Detector / CP / SSPD</span></label><span id="status-pnoise-det" class="text-[9px] text-slate-500">未加入</span></div>
+                                        <div class="flex items-center justify-between gap-2"><label class="flex items-center gap-1.5 cursor-pointer"><input id="enable-pnoise-det" type="checkbox" checked onchange="togglePNoiseContribution('det',this.checked)" class="accent-blue-500"><span id="pnoise-card-det-label" class="text-[10px] text-blue-300 font-bold">PFD/CP</span></label><span id="status-pnoise-det" class="text-[9px] text-slate-500">未加入</span></div>
                                         <div id="file-name-pnoise-det" class="mt-1 text-[9px] text-slate-500 truncate" title="">—</div>
                                     </div>
                                     <div id="pnoise-card-lpf" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80">
-                                        <div class="flex items-center justify-between gap-2"><label class="flex items-center gap-1.5 cursor-pointer"><input id="enable-pnoise-lpf" type="checkbox" checked onchange="togglePNoiseContribution('lpf',this.checked)" class="accent-emerald-500"><span class="text-[10px] text-emerald-300 font-bold">Loop Filter / R1</span></label><span id="status-pnoise-lpf" class="text-[9px] text-slate-500">未加入</span></div>
+                                        <div class="flex items-center justify-between gap-2"><label class="flex items-center gap-1.5 cursor-pointer"><input id="enable-pnoise-lpf" type="checkbox" checked onchange="togglePNoiseContribution('lpf',this.checked)" class="accent-emerald-500"><span class="text-[10px] text-emerald-300 font-bold">LF</span></label><span id="status-pnoise-lpf" class="text-[9px] text-slate-500">未加入</span></div>
                                         <div id="file-name-pnoise-lpf" class="mt-1 text-[9px] text-slate-500 truncate" title="">—</div>
                                     </div>
                                     <div id="pnoise-card-vco" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80">
@@ -1010,7 +1181,7 @@
                                         <div id="file-name-pnoise-vco" class="mt-1 text-[9px] text-slate-500 truncate" title="">—</div>
                                     </div>
                                     <div id="pnoise-card-div" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80">
-                                        <div class="flex items-center justify-between gap-2"><label class="flex items-center gap-1.5 cursor-pointer"><input id="enable-pnoise-div" type="checkbox" checked onchange="togglePNoiseContribution('div',this.checked)" class="accent-violet-500"><span class="text-[10px] text-violet-300 font-bold">Divider</span></label><span id="status-pnoise-div" class="text-[9px] text-slate-500">未加入</span></div>
+                                        <div class="flex items-center justify-between gap-2"><label class="flex items-center gap-1.5 cursor-pointer"><input id="enable-pnoise-div" type="checkbox" checked onchange="togglePNoiseContribution('div',this.checked)" class="accent-violet-500"><span class="text-[10px] text-violet-300 font-bold">DIV</span></label><span id="status-pnoise-div" class="text-[9px] text-slate-500">未加入</span></div>
                                         <div id="file-name-pnoise-div" class="mt-1 text-[9px] text-slate-500 truncate" title="">—</div>
                                     </div>
                                 </div>
@@ -1036,7 +1207,7 @@
                                     <input type="number" id="input-jitter-fmax" value="20" step="1" min="0.1" class="w-full text-center py-1 text-xs bg-slate-900 border border-slate-700/80 rounded-lg text-slate-200 font-mono-num" oninput="saveCurrentInputsAndCalculate()">
                                 </div>
                             </div>
-                            <div class="flex flex-wrap items-center gap-3 border-t border-slate-800 pt-2 text-[10px]">
+                            <div id="strict-coverage-row" class="flex flex-wrap items-center gap-3 border-t border-slate-800 pt-2 text-[10px]">
                                 <label class="flex items-center gap-2 text-slate-300 cursor-pointer"><input id="toggle-strict-coverage" type="checkbox" checked onchange="setStrictCoverage(this.checked)" class="accent-rose-500"> <span><strong>Strict jitter coverage</strong>：已啟用 contribution 必須完整涵蓋積分範圍</span></label>
                             </div>
                             </div>
@@ -1049,7 +1220,7 @@
 
                         <div class="bg-amber-950/20 border border-amber-800/50 rounded-xl p-3 text-[10.5px] text-amber-200/90 leading-relaxed">
                             <i class="fa-solid fa-triangle-exclamation mr-1 text-amber-400"></i>
-                            <strong>模型範圍：</strong><strong>First-order Estimate</strong> 使用系統級等效模型做架構趨勢、頻寬 trade-off 與初步 noise budget；<strong>Cadence PNoise Data</strong> 則直接使用 SpectreRF 在 PLL output 得到的各 block output-referred contribution，僅進行頻率插值、功率疊加與 jitter 積分，不會再次套用 NTF。
+                            <strong>模型範圍：</strong><strong>First-order Estimate</strong> 使用系統級等效模型做架構趨勢、頻寬 trade-off 與初步 noise budget；R1 thermal noise 以 <strong>300 K（約 27°C）</strong>計算，且各 contribution 以<strong>互不相關</strong>假設做 variance 相加。<strong>Cadence PNoise Data</strong> 則直接使用 SpectreRF 在 PLL output 得到的各 block output-referred contribution，僅進行頻率插值、功率疊加與 jitter 積分，不會再次套用 NTF。
                         </div>
 
                         <div class="space-y-1.5">
@@ -1061,18 +1232,29 @@
                                     <div class="flex items-center gap-3 font-mono">
                                         <span class="text-rose-400 font-bold">&mdash; Total</span>
                                         <span class="text-cyan-400">&mdash; Ref</span>
-                                        <span class="text-blue-400">&mdash; Detector/CP (eq.)</span>
-                                        <span class="text-emerald-400">&mdash; LPF (R1)</span>
-                                        <span class="text-amber-400">&mdash; VCO</span><span id="legend-pnoise-div" class="text-violet-400">&mdash; Divider</span>
+                                        <span id="legend-pnoise-det" class="text-blue-400">&mdash; PFD/CP</span>
+                                        <span class="text-emerald-400">&mdash; LF</span>
+                                        <span class="text-amber-400">&mdash; VCO</span><span id="legend-pnoise-div" class="text-violet-400">&mdash; DIV</span>
                                     </div>
                                     <label class="flex items-center gap-1.5 text-slate-300 cursor-pointer font-sans whitespace-nowrap px-2 py-1 rounded-lg border border-slate-700 bg-slate-900/80 hover:border-cyan-700/70" title="自動依據目前相位雜訊資料調整 Y 軸顯示範圍">
-                                        <input id="toggle-auto-y" type="checkbox" checked onchange="setAutoYScale(this.checked)" class="accent-cyan-500">
+                                        <input id="toggle-auto-y" type="checkbox" checked onchange="setAutoYScale(!this.checked)" class="accent-cyan-500">
                                         <span>Phase Noise Y 軸自動縮放</span>
                                     </label>
                                 </div>
                             </div>
-                            <div class="h-[440px] sm:h-[500px] w-full relative bg-[#090d16] rounded-xl p-2.5 border border-slate-800 shadow-inner">
-                                <canvas id="pnoiseChart"></canvas>
+                            <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-2.5 items-stretch">
+                                <div class="h-[440px] sm:h-[500px] w-full relative bg-[#090d16] rounded-xl p-2.5 border border-slate-800 shadow-inner min-w-0">
+                                    <canvas id="pnoiseChart"></canvas>
+                                </div>
+                                <div id="pnoise-cursor-panel" class="h-full min-h-[120px] bg-slate-950/70 border border-slate-800 rounded-xl p-3 flex flex-col">
+                                    <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
+                                        <span class="text-[10.5px] font-bold text-slate-200"><i class="fa-solid fa-crosshairs text-cyan-400 mr-1"></i>游標讀值</span>
+                                        <span id="pnoise-cursor-freq" class="text-[9.5px] font-mono text-cyan-300">--</span>
+                                    </div>
+                                    <div id="pnoise-cursor-values" class="mt-2 space-y-1.5 text-[10px]">
+                                        <div class="text-slate-500 leading-relaxed">將游標移到圖上，可在此同時查看該 offset frequency 的所有曲線數值。</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -1116,10 +1298,6 @@
                                         <i class="fa-solid fa-chart-line text-cyan-400"></i>
                                         Bandwidth Sweep &amp; In-Range Jitter Optimization
                                     </h3>
-                                    <p class="text-[11.5px] sm:text-xs text-slate-300 mt-1 leading-relaxed max-w-4xl">
-                                        只分析使用者指定的 Sweep 範圍，不自動擴展。判斷順序固定為：先找 raw RMS jitter 最低點 → 檢查是否位於 Sweep 邊界 → 若在內部再檢查左右離散導數是否由負轉正 → 最後才檢查 PM 是否限制該 minimum。PM 比較採小容差以避免浮點誤差。每個候選設計仍會數值求真正的 \(|T(j2\pi f)|=1\) crossover 與 Actual PM。
-                                        <strong class="text-amber-300">Cadence 匯入資料是特定 loop 的 output-referred contribution，因此不會被跨 bandwidth 重用。</strong>
-                                    </p>
                                 </div>
                             </div>
 
@@ -1145,17 +1323,20 @@
                             <div id="bandwidth-sweep-status" class="text-[11px] text-slate-400 leading-relaxed">尚未執行。建議先確認 Estimate 參數與 jitter integration range 已設定完成。</div>
 
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div id="sweep-summary-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3"><div class="text-[10.5px] text-slate-400">符合 PM 約束的最低 RMS Jitter</div><div id="sweep-best-jitter" class="text-lg font-bold text-rose-300 font-mono-num mt-1">--</div></div>
                                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3"><div class="text-[10.5px] text-slate-400">建議 \(f_c\)</div><div id="sweep-best-fc" class="text-lg font-bold text-cyan-300 font-mono-num mt-1">--</div></div>
                                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3"><div class="text-[10.5px] text-slate-400">該點實際 PM</div><div id="sweep-best-pm" class="text-lg font-bold text-emerald-300 font-mono-num mt-1">--</div></div>
                                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3"><div class="text-[10.5px] text-slate-400">Sweep 範圍</div><div id="sweep-search-range" class="text-sm font-bold text-violet-300 font-mono-num mt-1">--</div></div>
                             </div>
 
-                            <div class="bg-slate-950/50 border border-slate-800 rounded-xl p-3 space-y-2">
+                            <div id="sweep-optimum-status-card" class="bg-slate-950/50 border border-slate-800 rounded-xl p-3 space-y-2">
                                 <div class="flex items-center justify-between gap-2">
                                     <div class="text-[11px] font-bold text-slate-200">Optimum 判定狀態</div>
-                                    <div id="sweep-result-freshness" class="text-[10px] text-slate-500">尚未執行</div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span id="sweep-top-stale-badge" class="hidden rounded-md px-2 py-0.5 text-[10px] font-bold border border-rose-700/70 bg-rose-950/45 text-rose-300">Outdated</span>
+                                        <div id="sweep-result-freshness" class="text-[10px] text-slate-500">尚未執行</div>
+                                    </div>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                                     <div id="badge-opt-noise" class="opt-status-badge rounded-lg px-3 py-2">
@@ -1174,15 +1355,32 @@
                             </div>
 
                             <div class="bg-slate-950/45 border border-slate-800 rounded-xl p-3"><canvas id="bandwidthSweepChart" height="105"></canvas></div>
-                            <div id="sweep-best-detail" class="hidden bg-slate-950/55 border border-slate-800 rounded-xl p-3 text-[11.5px] text-slate-300 leading-relaxed"></div>
 
-                            <div id="noise-opt-advisor" class="bg-slate-950/45 border border-slate-800 rounded-xl p-4 space-y-3">
+                            
+                            <div id="design-validity-card" class="bg-slate-950/45 border border-slate-800 rounded-xl p-3">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                    <div>
+                                        <div class="text-[12px] font-bold text-slate-100">Design Validity Check</div>
+                                        <div class="text-[10.5px] text-slate-400 mt-0.5">檢查目前 loop bandwidth、實際 crossover、PM、pole/zero 與元件尺度是否合理。</div>
+                                    </div>
+                                    <span id="design-validity-status" class="opt-status-badge rounded-lg px-3 py-1.5 font-bold">等待計算</span>
+                                </div>
+                                <div id="design-validity-summary" class="text-[10.5px] text-slate-300 leading-relaxed mb-2">尚無資料。</div>
+                                <div id="design-validity-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2"></div>
+                            </div>
+<div id="noise-opt-advisor" class="bg-slate-950/45 border border-slate-800 rounded-xl p-4 space-y-3">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     <div>
                                         <div class="text-[12px] font-bold text-slate-100">Current Design vs Optimum</div>
                                         <div class="text-[10.5px] text-slate-400 mt-0.5">解釋 optimizer 為什麼改變 bandwidth，以及 jitter 改善是否值得元件代價。</div>
                                     </div>
-                                    <span id="advisor-verdict" class="opt-status-badge rounded-lg px-3 py-1.5 text-[10.5px] font-bold">等待 Sweep</span>
+                                    <div class="flex items-center gap-1.5">
+                                        <span id="advisor-stale-badge" class="hidden rounded-lg px-2 py-1 text-[10px] font-bold border border-rose-700/70 bg-rose-950/45 text-rose-300">Outdated</span>
+                                        <span id="advisor-verdict" class="opt-status-badge rounded-lg px-3 py-1.5 text-[10.5px] font-bold">等待 Sweep</span>
+                                    </div>
+                                </div>
+                                <div id="advisor-stale-warning" class="hidden rounded-lg border border-rose-700/70 bg-rose-950/35 px-3 py-2 text-[10.5px] font-semibold text-rose-300">
+                                    <i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Optimum Candidate 已過期；Current Design 已即時更新，請重新執行 Sweep 後再比較或套用。
                                 </div>
                                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">
                                     <div class="overflow-x-auto rounded-lg border border-slate-800">
@@ -1850,22 +2048,23 @@
 
     <!-- Footer -->
     <footer class="bg-[#0f172a] border-t border-slate-800/80 py-2.5 text-center text-xs text-slate-400 flex-shrink-0">
-        <p>PLL 2nd Loop Filter Designer &copy; 2026. Academic &amp; Research Tool. <span class="text-slate-500">v46 — Restored layout + compact unified PNoise UI</span></p>
+        <p>PLL 2nd Loop Filter Designer &copy; 2026. Academic &amp; Research Tool. <span class="text-slate-500">v63 — Roomier CPPLL 3x3 grid while preserving SSPLL alignment</span></p>
     </footer>
 
     <!-- Optimized Logic & Reactive Controller Script -->
     <script>
-        const STORAGE_KEY = 'PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V46';
-        const LEGACY_STORAGE_KEYS = ['PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V44','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V43','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V42','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V41','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V40','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V39','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V38','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V37','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V36','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V35','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V34','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V33','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V32','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V31','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V30','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V29','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V28','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V27',
+        const STORAGE_KEY = 'PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V63';
+        const LEGACY_STORAGE_KEYS = ['PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V62','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V61','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V60','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V59','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V58','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V57','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V56','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V55','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V54','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V53','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V52','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V51','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V50','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V49','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V48','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V47','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V46','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V44','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V43','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V42','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V41','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V40','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V39','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V38','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V37','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V36','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V35','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V34','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V33','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V32','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V31','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V30','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V29','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V28','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V27',
             'PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V26',
         'PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V25','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V24','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V23','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V22','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V21','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V20','PLL_2ND_LOOP_FILTER_DESIGNER_STATE_V19'];
-        const STATE_SCHEMA_VERSION = 46;
+        const STATE_SCHEMA_VERSION = 63;
 
         const defaultState = {
             currentArch: 'cppll',
             currentWorkspaceTab: 'bode',
-            noise: { refFloor: -155, refFlicker_kHz: 10, detFloorCP: -142, detFloorSS: -135, detFlicker_kHz: 5, divFloor: -150, divFlicker_kHz: 10, vco1M: -120, vcoFlicker_kHz: 100, fmin_kHz: 12, fmax_MHz: 20, estimatePreset: null, mode: 'estimate', strictCoverage: true, autoYScale: true, enabled: { ref: true, det: true, lpf: true, vco: true, div: true }, pnoise: { ref: '', det: '', lpf: '', vco: '', div: '' }, pnoiseMeta: { ref: '', det: '', lpf: '', vco: '', div: '' } },
+            noise: { refFloor: -155, refFlicker_kHz: 10, detFloorCP: -142, detFloorSS: -135, detFlicker_kHz: 5, divFloor: -150, divFlicker_kHz: 10, vco1M: -120, vcoFlicker_kHz: 100, fmin_kHz: 12, fmax_MHz: 20, estimatePreset: null, mode: 'estimate', strictCoverage: true, autoYScale: false, enabled: { ref: true, det: true, lpf: true, vco: true, div: true }, pnoise: { ref: '', det: '', lpf: '', vco: '', div: '' }, pnoiseMeta: { ref: '', det: '', lpf: '', vco: '', div: '' } },
             sweep: { fcMin_MHz: 0.5, fcMax_MHz: 5, step_MHz: 0.001, minPM_deg: 45 },
+            systemPreset: { cppll: null, sspll: null },
             schemaVersion: STATE_SCHEMA_VERSION,
             cppll: { fref: 37.5, fvco: 2.4, kvco: 280, icp: 100, fc: 1.875, pm: 60, kpole: 5, method: 1 },
             sspll: { fref: 37.5, fvco: 2.4, kvco: 280, avco: 0.5, gm: 100, tpul: 1.5, fc: 1.875, pm: 60, kpole: 5, manualC2: 10, method: 1 }
@@ -1878,6 +2077,7 @@
         let cumulativeJitterChart = null;
         let bandwidthSweepChart = null;
         let lastBandwidthSweep = null;
+        let lastBandwidthSweepSignature = null;
 
         const dom = {};
         const DOM_ID_LIST = [
@@ -1885,7 +2085,7 @@
             'label-arch-title', 'badge-arch-tag', 'schematic-in-label', 'method-selector-container',
             'btn-m1', 'btn-m2', 'text-m1-title', 'text-m1-sub', 'text-m2-title', 'text-m2-sub',
             'input-fref', 'display-tref', 'input-fvco', 'display-n', 'input-kvco', 'input-icp',
-            'input-avco', 'input-gm', 'input-tpul', 'input-fc', 'input-pm', 'dynamic-fc-chips',
+            'input-avco', 'input-gm', 'input-tpul', 'input-fc', 'input-pm', 'dynamic-fc-chips', 'btn-system-default', 'btn-system-save-preset', 'system-preset-status',
             'c2-manual-container', 'input-manual-c2', 'dynamic-c2-chips', 'fpole-setting-row', 'input-kpole',
             'verification-card', 'verification-card-title', 'status-badge', 'val-cap-ratio', 'val-freq-ratio',
             'val-phase-lag', 'verification-msg-box', 'msg-box-title', 'msg-box-desc1', 'badge-method',
@@ -1899,15 +2099,15 @@
             'gm-helper-card', 'calc-gm-icp', 'calc-gm-vov', 'calc-gm-res', 'guide-gm-card',
             // Phase Noise & Jitter DOM IDs
             'val-rms-jitter-time', 'label-jitter-range', 'val-rms-phase-deg', 'val-rms-phase-rad', 'label-vco-1m-sub',
-            'val-inband-pn', 'val-vco-1m-pn', 'input-ref-floor', 'input-ref-flicker', 'input-det-floor', 'input-det-flicker', 'label-det-floor', 'help-det-floor', 'input-div-floor', 'input-div-flicker', 'divider-estimate-fields', 'input-vco-1m', 'input-vco-flicker', 'input-jitter-fmin', 'input-jitter-fmax',
+            'val-inband-pn', 'val-vco-1m-pn', 'input-ref-floor', 'input-ref-flicker', 'input-det-floor', 'input-det-flicker', 'label-det-floor', 'estimate-param-help', 'estimate-param-help-title', 'estimate-param-help-body', 'input-div-floor', 'input-div-flicker', 'divider-estimate-fields', 'input-vco-1m', 'input-vco-flicker', 'input-jitter-fmin', 'input-jitter-fmax',
             'btn-noise-estimate', 'btn-noise-cadence', 'noise-estimate-panel', 'noise-cadence-panel',
             'status-pnoise-ref', 'status-pnoise-det', 'status-pnoise-lpf', 'status-pnoise-vco', 'status-pnoise-div',
             'file-name-pnoise-ref', 'file-name-pnoise-det', 'file-name-pnoise-lpf', 'file-name-pnoise-vco', 'file-name-pnoise-div',
-            'pnoise-card-ref', 'pnoise-card-det', 'pnoise-card-lpf', 'pnoise-card-vco', 'pnoise-card-div', 'legend-pnoise-div',
-            'file-pnoise-csv', 'file-project-json', 'pnoise-drop-zone', 'pnoise-import-summary', 'pnoise-unmapped-panel', 'pnoise-unmapped-list', 'pnoiseChart', 'cumulativeJitterChart', 'cumulative-jitter-status', 'noise-dominance-cards',
-            'enable-pnoise-ref','enable-pnoise-det','enable-pnoise-lpf','enable-pnoise-vco','enable-pnoise-div','toggle-strict-coverage','toggle-auto-y','jitter-budget-body','jitter-budget-status',
+            'pnoise-card-ref', 'pnoise-card-det', 'pnoise-card-lpf', 'pnoise-card-vco', 'pnoise-card-div', 'pnoise-card-det-label', 'legend-pnoise-det', 'legend-pnoise-div',
+            'file-pnoise-csv', 'file-project-json', 'pnoise-drop-zone', 'pnoise-import-summary', 'pnoise-unmapped-panel', 'pnoise-unmapped-list', 'pnoiseChart', 'pnoise-cursor-panel', 'pnoise-cursor-freq', 'pnoise-cursor-values', 'cumulativeJitterChart', 'cumulative-jitter-status', 'noise-dominance-cards',
+            'enable-pnoise-ref','enable-pnoise-det','enable-pnoise-lpf','enable-pnoise-vco','enable-pnoise-div','toggle-strict-coverage','strict-coverage-row','toggle-auto-y','jitter-budget-body','jitter-budget-status',
             'noise-source-body','btn-noise-source-collapse','icon-noise-source-collapse',
-            'bandwidth-sweep-card','input-sweep-fc-min','input-sweep-fc-max','input-sweep-step','input-sweep-pm-min','bandwidth-sweep-status','bandwidthSweepChart','sweep-best-jitter','sweep-best-fc','sweep-best-pm','sweep-search-range','sweep-best-detail','btn-apply-sweep-best','sweep-result-freshness','badge-opt-noise','badge-opt-stability','badge-opt-range','noise-opt-advisor','advisor-verdict','advisor-compare-body','advisor-diagnosis','advisor-validity','btn-estimate-default','btn-estimate-save-preset','estimate-preset-status'
+            'bandwidth-sweep-card','input-sweep-fc-min','input-sweep-fc-max','input-sweep-step','input-sweep-pm-min','bandwidth-sweep-status','bandwidthSweepChart','sweep-best-jitter','sweep-best-fc','sweep-best-pm','sweep-search-range','btn-apply-sweep-best','sweep-summary-results','sweep-optimum-status-card','sweep-top-stale-badge','sweep-result-freshness','badge-opt-noise','badge-opt-stability','badge-opt-range','design-validity-card','design-validity-status','design-validity-summary','design-validity-list','noise-opt-advisor','advisor-stale-badge','advisor-stale-warning','advisor-verdict','advisor-compare-body','advisor-diagnosis','advisor-validity','btn-estimate-default','btn-estimate-save-preset','estimate-preset-status'
         ];
 
         function initDOMCache() {
@@ -1931,6 +2131,7 @@
                         ...defaultState, 
                         ...parsed,
                         schemaVersion: STATE_SCHEMA_VERSION,
+                        systemPreset: { ...defaultState.systemPreset, ...(parsed.systemPreset || {}) },
                         noise: { ...defaultState.noise, ...(parsed.noise || {}), enabled: { ...defaultState.noise.enabled, ...((parsed.noise || {}).enabled || {}) }, pnoise: { ...defaultState.noise.pnoise, ...((parsed.noise || {}).pnoise || {}) }, pnoiseMeta: { ...defaultState.noise.pnoiseMeta, ...((parsed.noise || {}).pnoiseMeta || {}) } },
                         sweep: { ...defaultState.sweep, ...(parsed.sweep || {}) },
                         cppll: { ...defaultState.cppll, ...(parsed.cppll || {}) }, 
@@ -2525,6 +2726,9 @@
             const currentArch = appState.currentArch;
             const data = appState[currentArch];
 
+            updateSystemPresetStatus();
+            updateEstimateParameterGridLayout();
+
             FORM_FIELDS.forEach(f => {
                 if (dom[f.id]) dom[f.id].value = data[f.key];
             });
@@ -2550,8 +2754,10 @@
                 if (dom['input-div-flicker']) dom['input-div-flicker'].value = appState.noise.divFlicker_kHz ?? 10;
                 if (dom['divider-estimate-fields']) dom['divider-estimate-fields'].classList.toggle('hidden', currentArch !== 'cppll');
                 if (dom['pnoise-card-div']) dom['pnoise-card-div'].classList.toggle('hidden', currentArch !== 'cppll');
+                if (dom['pnoise-card-det-label']) dom['pnoise-card-det-label'].textContent = currentArch === 'cppll' ? 'PFD/CP' : 'SSPD/CP';
+                if (dom['legend-pnoise-det']) dom['legend-pnoise-det'].innerHTML = currentArch === 'cppll' ? '&mdash; PFD/CP' : '&mdash; SSPD/CP';
                 if (dom['legend-pnoise-div']) dom['legend-pnoise-div'].classList.toggle('hidden', currentArch !== 'cppll');
-                if (dom['help-det-floor']) dom['help-det-floor'].innerHTML = currentArch === 'cppll' ? 'PFD/CP 等效 input-referred phase-noise floor。<strong class="text-blue-300">CP-PLL 預設 −142</strong>；初步可掃 −130 ~ −155 dBc/Hz，最終應由 PNoise input-refer/calibration 取得。' : 'SSPD/SSCP 在 normalized sampled-phase 座標的等效 input-referred floor。<strong class="text-blue-300">SSPLL 預設 −135</strong>；只作 LTI 等效初估，最終應以 sampled PSS/PNoise contribution 校正。';
+                if (window.currentEstimateHelpKey === 'det-floor') showEstimateParamHelp('det-floor');
                 if (dom['input-jitter-fmin']) dom['input-jitter-fmin'].value = appState.noise.fmin_kHz;
                 if (dom['input-jitter-fmax']) dom['input-jitter-fmax'].value = appState.noise.fmax_MHz;
                 if (!appState.noise.pnoise) appState.noise.pnoise = { ref: '', det: '', lpf: '', vco: '', div: '' };
@@ -2573,6 +2779,134 @@
                 }
                 if (dom['input-sweep-pm-min']) dom['input-sweep-pm-min'].value = appState.sweep.minPM_deg ?? 45;
             }
+        }
+
+
+        const SYSTEM_BUILTIN_DEFAULTS = Object.freeze({
+            cppll: Object.freeze({ fref:37.5, fvco:2.4, kvco:280, icp:100, fc:1.875, pm:60, kpole:5 }),
+            sspll: Object.freeze({ fref:37.5, fvco:2.4, kvco:280, avco:0.5, gm:100, tpul:1.5, fc:1.875, pm:60, kpole:5, manualC2:10 })
+        });
+
+        function getCurrentSystemParams() {
+            const arch=appState.currentArch;
+            const params={
+                fref:parseFloat(dom['input-fref']?.value),
+                fvco:parseFloat(dom['input-fvco']?.value),
+                kvco:parseFloat(dom['input-kvco']?.value),
+                fc:parseFloat(dom['input-fc']?.value),
+                pm:parseFloat(dom['input-pm']?.value),
+                kpole:parseFloat(dom['input-kpole']?.value)
+            };
+            if(arch==='cppll'){
+                params.icp=parseFloat(dom['input-icp']?.value);
+            }else{
+                params.avco=parseFloat(dom['input-avco']?.value);
+                params.gm=parseFloat(dom['input-gm']?.value);
+                params.tpul=parseFloat(dom['input-tpul']?.value);
+                params.manualC2=parseFloat(dom['input-manual-c2']?.value);
+            }
+            const fallback=SYSTEM_BUILTIN_DEFAULTS[arch];
+            Object.keys(params).forEach(k=>{ if(!Number.isFinite(params[k])) params[k]=fallback[k]; });
+            return params;
+        }
+
+        function applySystemParams(params,statusText) {
+            if(!params) return;
+            const arch=appState.currentArch;
+            const fallback=SYSTEM_BUILTIN_DEFAULTS[arch];
+            const merged={...fallback,...params};
+            Object.assign(appState[arch],merged);
+            syncStateToInputs();
+            if(dom['system-preset-status']) dom['system-preset-status'].textContent=statusText||'';
+            saveState();
+            calculate(false);
+        }
+
+        function restoreSystemDefaults() {
+            const arch=appState.currentArch;
+            const preset=appState.systemPreset?.[arch];
+            if(preset) applySystemParams(preset,'自訂初始值');
+            else applySystemParams({...SYSTEM_BUILTIN_DEFAULTS[arch]},'內建 Default');
+        }
+
+        function saveSystemPreset() {
+            const arch=appState.currentArch;
+            if(!appState.systemPreset) appState.systemPreset={cppll:null,sspll:null};
+            appState.systemPreset[arch]=getCurrentSystemParams();
+            saveState();
+            if(dom['system-preset-status']) dom['system-preset-status'].textContent='自訂初始值';
+        }
+
+        function updateSystemPresetStatus() {
+            const arch=appState.currentArch;
+            if(dom['system-preset-status']) dom['system-preset-status'].textContent=appState.systemPreset?.[arch]?'自訂初始值':'內建 Default';
+        }
+
+        window.currentEstimateHelpKey = null;
+
+        function getEstimateParamHelp(key) {
+            const isCP=appState.currentArch==='cppll';
+            const map={
+                'ref-floor':{
+                    title:'Ref far-out floor',
+                    body:'Reference source 的白相位雜訊底。<strong class="text-cyan-300">預設 −155 dBc/Hz</strong>；初步探索可用約 −145 ~ −165 dBc/Hz。最好由晶振或 clock buffer 的 phase-noise 規格取得。'
+                },
+                'ref-flicker':{
+                    title:'Ref flicker corner',
+                    body:'Reference 由 white PN 轉入 flicker-dominated 區的轉折。<strong class="text-cyan-300">預設 10 kHz</strong>；無資料時可先掃 1 ~ 30 kHz 觀察敏感度。'
+                },
+                'det-floor': isCP ? {
+                    title:'PFD/CP input-referred floor',
+                    body:'PFD/CP 等效 input-referred phase-noise floor。<strong class="text-blue-300">CP-PLL 預設 −142 dBc/Hz</strong>；初步可掃 −130 ~ −155 dBc/Hz，最終應由 PNoise input-refer / calibration 取得。'
+                } : {
+                    title:'SSPD/SSCP normalized input-referred floor',
+                    body:'SSPD/SSCP 在 normalized sampled-phase 座標的等效 input-referred floor。<strong class="text-blue-300">SSPLL 預設 −135 dBc/Hz</strong>；僅作 LTI 等效初估，最終應以 sampled PSS/PNoise contribution 校正。'
+                },
+                'det-flicker':{
+                    title:isCP?'PFD/CP flicker corner':'SSPD/CP flicker corner',
+                    body:`${isCP?'PFD/CP':'SSPD/CP'} 等效 phase noise 的 flicker 轉折。<strong class="text-blue-300">預設 5 kHz</strong>；無資料可先掃 1 ~ 30 kHz。`
+                },
+                'vco-anchor':{
+                    title:'VCO @ 1 MHz anchor',
+                    body:'Free-running VCO 在 1 MHz offset 的 SSB PN 錨點。<strong class="text-amber-300">預設 −120 dBc/Hz</strong>；2–3 GHz CMOS LC-VCO 初步探索可用約 −105 ~ −125 dBc/Hz，應優先填實際 PSS/PNoise 值。'
+                },
+                'vco-flicker':{
+                    title:'VCO flicker corner',
+                    body:'VCO phase-noise slope 由約 1/f² 轉向更陡 1/f³ 的近端轉折。<strong class="text-amber-300">預設 100 kHz</strong>；可先掃 30 ~ 300 kHz，最好由 free-running PN 曲線斜率辨識。'
+                },
+                'div-floor':{
+                    title:'DIV input-referred floor',
+                    body:'CP-PLL feedback DIV 在<strong>除頻輸出端</strong>的 additive phase-noise floor。<strong class="text-violet-300">預設 −150 dBc/Hz</strong>；初步可掃 −135 ~ −160 dBc/Hz，最終應由 DIV PSS/PNoise 或 standalone jitter/PN 模擬取得。'
+                },
+                'div-flicker':{
+                    title:'DIV flicker corner',
+                    body:'DIV additive PN 的 flicker 轉折。<strong class="text-violet-300">預設 10 kHz</strong>；無資料時可先掃 1 ~ 100 kHz。SSPLL 主 sampling loop 不使用此項。'
+                }
+            };
+            return map[key]||null;
+        }
+
+        function showEstimateParamHelp(key) {
+            const info=getEstimateParamHelp(key);
+            if(!info||!dom['estimate-param-help-title']||!dom['estimate-param-help-body']) return;
+            window.currentEstimateHelpKey=key;
+            dom['estimate-param-help-title'].textContent=info.title;
+            dom['estimate-param-help-body'].innerHTML=info.body;
+        }
+
+
+        function updateEstimateParameterGridLayout() {
+            const grid=document.getElementById('estimate-parameter-grid');
+            if(!grid) return;
+            grid.classList.toggle('sspll-layout',appState.currentArch==='sspll');
+        }
+
+        function setupEstimateParamHelp() {
+            document.querySelectorAll('.estimate-param-card[data-help-key]').forEach(card=>{
+                const key=card.dataset.helpKey;
+                card.addEventListener('mouseenter',()=>showEstimateParamHelp(key));
+                card.addEventListener('focusin',()=>showEstimateParamHelp(key));
+            });
         }
 
         const ESTIMATE_BUILTIN_DEFAULTS = Object.freeze({
@@ -2678,6 +3012,9 @@
             const cadence = mode === 'cadence';
             if (dom['noise-estimate-panel']) dom['noise-estimate-panel'].classList.toggle('hidden', cadence);
             if (dom['noise-cadence-panel']) dom['noise-cadence-panel'].classList.toggle('hidden', !cadence);
+            if (dom['strict-coverage-row']) dom['strict-coverage-row'].classList.toggle('hidden', !cadence);
+            const sweepCard = dom['bandwidth-sweep-card'] || document.getElementById('bandwidth-sweep-card');
+            if (sweepCard) sweepCard.classList.toggle('hidden', cadence);
             if (dom['btn-noise-estimate']) dom['btn-noise-estimate'].className = cadence
                 ? 'px-3 py-1 rounded-md text-[10px] font-semibold border border-transparent text-slate-400 hover:text-slate-200'
                 : 'px-3 py-1 rounded-md text-[10px] font-bold border border-cyan-500/70 bg-cyan-950/40 text-cyan-300';
@@ -2752,7 +3089,7 @@
             const n = normalizeFileName(name);
             if (/(^|_)(reference|ref|xtal|crystal)(_|$)/.test(n)) return 'ref';
             if (/(^|_)(detector|det|pfd|charge_pump|chargepump|cp|sspd|sscp)(_|$)/.test(n)) return 'det';
-            if (/(^|_)(lpf|loop_filter|loopfilter|filter|r1|resistor)(_|$)/.test(n)) return 'lpf';
+            if (/(^|_)(lf|lpf|loop_filter|loopfilter|filter|r1|resistor)(_|$)/.test(n)) return 'lpf';
             if (/(^|_)(divider|div|prescaler|counter)(_|$)/.test(n)) return 'div';
             if (/(^|_)(vco|oscillator)(_|$)/.test(n)) return 'vco';
             return null;
@@ -2784,7 +3121,7 @@
             const idxF = findIdx([/freq/, /offset/]);
             const idxRef = findIdx([/reference/, /(^|_)ref(_|$)/]);
             const idxDet = findIdx([/detector/, /pfd/, /charge.*pump/, /(^|_)cp(_|$)/, /sspd/, /sscp/]);
-            const idxLpf = findIdx([/lpf/, /loop.*filter/, /(^|_)r1(_|$)/, /resistor/]);
+            const idxLpf = findIdx([/(^|_)lf(_|$)/, /lpf/, /loop.*filter/, /(^|_)r1(_|$)/, /resistor/]);
             const idxVco = findIdx([/vco/, /oscillator/]);
             const idxDiv = findIdx([/divider/, /prescaler/, /(^|_)div(_|$)/, /counter/]);
             if ([idxF, idxRef, idxDet, idxLpf, idxVco].some(i => i < 0)) return null;
@@ -2884,7 +3221,7 @@
                 <div class="flex flex-wrap items-center gap-2 bg-slate-900/80 border border-slate-800 rounded-lg px-2 py-1.5">
                     <span class="min-w-0 flex-1 text-[10px] text-slate-300 truncate" title="${escapeHtml(item.name)}">${escapeHtml(item.name)} <span class="text-slate-500">(${item.points} pts)</span></span>
                     <select id="pnoise-map-${i}" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-[10px] text-slate-300">
-                        <option value="">選擇類型</option><option value="ref">Reference</option><option value="det">Detector/CP/SSPD</option><option value="lpf">Loop Filter/R1</option><option value="vco">VCO</option><option value="div">Divider (CP-PLL)</option>
+                        <option value="">選擇類型</option><option value="ref">Ref</option><option value="det">${appState.currentArch==='cppll'?'PFD/CP':'SSPD/CP'}</option><option value="lpf">LF</option><option value="vco">VCO</option><option value="div">DIV (CP-PLL)</option>
                     </select>
                     <button type="button" onclick="applyPendingPNoiseMapping(${i})" class="px-2 py-1 text-[10px] rounded border border-amber-700 bg-amber-950/40 text-amber-300">套用</button>
                 </div>`).join('');
@@ -2903,7 +3240,8 @@
             if (!res.ok) return;
             pendingPNoiseFiles.splice(index, 1);
             saveState(); renderPendingPNoiseFiles(); updatePNoiseStatuses(); calculate();
-            showPNoiseImportMessage(`${item.name} 已指定為 ${target.toUpperCase()}。`, 'ok');
+            const mapName={ref:'Ref',det:appState.currentArch==='cppll'?'PFD/CP':'SSPD/CP',lpf:'LF',vco:'VCO',div:'DIV'}[target]||target.toUpperCase();
+            showPNoiseImportMessage(`${item.name} 已指定為 ${mapName}。`, 'ok');
         }
 
         function showPNoiseImportMessage(message, type='neutral') {
@@ -2935,7 +3273,7 @@
             const file = event.target.files && event.target.files[0]; if (!file) return;
             try {
                 const obj = JSON.parse(await file.text()); const parsed = obj.state || obj;
-                appState = { ...defaultState, ...parsed, schemaVersion: STATE_SCHEMA_VERSION, noise: { ...defaultState.noise, ...(parsed.noise||{}), enabled:{...defaultState.noise.enabled,...((parsed.noise||{}).enabled||{})}, pnoise:{...defaultState.noise.pnoise,...((parsed.noise||{}).pnoise||{})}, pnoiseMeta:{...defaultState.noise.pnoiseMeta,...((parsed.noise||{}).pnoiseMeta||{})} }, sweep:{...defaultState.sweep,...(parsed.sweep||{})}, cppll:{...defaultState.cppll,...(parsed.cppll||{})}, sspll:{...defaultState.sspll,...(parsed.sspll||{})} };
+                appState = { ...defaultState, ...parsed, schemaVersion: STATE_SCHEMA_VERSION, systemPreset:{...defaultState.systemPreset,...(parsed.systemPreset||{})}, noise: { ...defaultState.noise, ...(parsed.noise||{}), enabled:{...defaultState.noise.enabled,...((parsed.noise||{}).enabled||{})}, pnoise:{...defaultState.noise.pnoise,...((parsed.noise||{}).pnoise||{})}, pnoiseMeta:{...defaultState.noise.pnoiseMeta,...((parsed.noise||{}).pnoiseMeta||{})} }, sweep:{...defaultState.sweep,...(parsed.sweep||{})}, cppll:{...defaultState.cppll,...(parsed.cppll||{})}, sspll:{...defaultState.sspll,...(parsed.sspll||{})} };
                 saveState(); syncStateToInputs(); updatePNoiseStatuses(); updateNoiseModeUI(); calculate();
                 showPNoiseImportMessage(`Project 已匯入：${file.name}`, 'ok');
             } catch(e) { alert('Project JSON 無法匯入：' + e.message); }
@@ -2970,7 +3308,7 @@
                 }
             });
             if (dom['toggle-strict-coverage']) dom['toggle-strict-coverage'].checked = appState.noise.strictCoverage !== false;
-            if (dom['toggle-auto-y']) dom['toggle-auto-y'].checked = appState.noise.autoYScale !== false;
+            if (dom['toggle-auto-y']) dom['toggle-auto-y'].checked = !(appState.noise.autoYScale !== false);
             if (dom['pnoise-import-summary'] && !pendingPNoiseFiles.length) {
                 dom['pnoise-import-summary'].textContent = active
                     ? `已載入 ${active}/${appState.currentArch==='cppll'?5:4} 路 contribution，共 ${totalPts} 個資料點。`
@@ -3346,6 +3684,7 @@
 
             renderBodePlots(effectiveGainFactor, R1, C1, C2, fz, fc, fp, actual_pm);
             calculateAndRenderPhaseNoise(effectiveGainFactor, R1, C1, C2, fvco, fref, N, kvco_rad);
+            if (((appState.noise && appState.noise.mode) || 'estimate') === 'estimate') renderLiveCurrentDesign();
             typesetMath([dom['label-gain-factor-formula']]);
         }
 
@@ -3607,8 +3946,11 @@
             const divFc=Math.max(0,parseFloat(dom['input-div-flicker']?.value)||0)*1e3;
             const vco1m=Number.isFinite(parseFloat(dom['input-vco-1m']?.value))?parseFloat(dom['input-vco-1m'].value):-120;
             const vcoFc=Math.max(0,parseFloat(dom['input-vco-flicker']?.value)||0)*1e3;
-            const fmin=Math.max(1,(parseFloat(dom['input-jitter-fmin']?.value)||12)*1e3);
-            const fmax=Math.max(fmin*1.001,(parseFloat(dom['input-jitter-fmax']?.value)||20)*1e6);
+            const rawFmin_kHz=parseFloat(dom['input-jitter-fmin']?.value);
+            const rawFmax_MHz=parseFloat(dom['input-jitter-fmax']?.value);
+            const fmin=Math.max(1,(Number.isFinite(rawFmin_kHz)?rawFmin_kHz:12)*1e3);
+            const fmax=Math.max(1,(Number.isFinite(rawFmax_MHz)?rawFmax_MHz:20)*1e6);
+            if(!(fmax>fmin)) return {jitterSec:NaN,phaseRad:NaN,variance:{ref:0,det:0,lpf:0,vco:0,div:0},shares:{ref:0,det:0,lpf:0,vco:0,div:0}};
             const thermal=4*1.380649e-23*300*d.R1;
             const vcoNorm=1+vcoFc/1e6;
 
@@ -3644,16 +3986,40 @@
 
 
 
+
+        function setSweepResultFreshnessUI(stale) {
+            const summary=dom['sweep-summary-results']||document.getElementById('sweep-summary-results');
+            const optCard=dom['sweep-optimum-status-card']||document.getElementById('sweep-optimum-status-card');
+            const topBadge=dom['sweep-top-stale-badge']||document.getElementById('sweep-top-stale-badge');
+            const advisorBadge=dom['advisor-stale-badge']||document.getElementById('advisor-stale-badge');
+            const advisorWarning=dom['advisor-stale-warning']||document.getElementById('advisor-stale-warning');
+
+            if(summary) summary.classList.toggle('sweep-results-outdated',!!stale);
+            if(optCard) optCard.classList.toggle('sweep-results-outdated',!!stale);
+            if(topBadge) topBadge.classList.toggle('hidden',!stale);
+            if(advisorBadge) advisorBadge.classList.toggle('hidden',!stale);
+            if(advisorWarning) advisorWarning.classList.toggle('hidden',!stale);
+
+            if(dom['sweep-result-freshness']){
+                if(stale){
+                    dom['sweep-result-freshness'].textContent='參數已變更，請重新執行 Sweep';
+                    dom['sweep-result-freshness'].className='text-[10px] text-rose-300';
+                }else if(lastBandwidthSweep){
+                    dom['sweep-result-freshness'].textContent='結果已更新';
+                    dom['sweep-result-freshness'].className='text-[10px] text-emerald-300';
+                }
+            }
+        }
+
         function markSweepStale() {
-            if (dom['sweep-result-freshness']) {
-                dom['sweep-result-freshness'].textContent = '參數已變更，請重新執行 Sweep';
-                dom['sweep-result-freshness'].className = 'text-[10px] text-amber-300';
-            }
-            if (dom['bandwidth-sweep-status'] && lastBandwidthSweep) {
+            if (!lastBandwidthSweep) return;
+            setSweepResultFreshnessUI(true);
+            if (dom['bandwidth-sweep-status']) {
                 dom['bandwidth-sweep-status'].innerHTML =
-                    '<strong class="text-amber-300">Sweep 參數已變更。</strong> 下方結果仍是上一輪資料，請按「執行 Sweep」更新。';
+                    '<strong class="text-rose-300">Outdated：</strong>目前顯示的是上一輪 Sweep 結果，請重新執行 Sweep 更新。';
             }
-            updateOptimumBadges(null);
+            const applyBtn=dom['btn-apply-sweep-best']||document.getElementById('btn-apply-sweep-best');
+            if(applyBtn) applyBtn.disabled=true;
         }
 
         function updateOptimumBadges(kind) {
@@ -3914,18 +4280,62 @@
         function advisorDominant(p){
             if(!p?.shares)return null; let k0=null,v0=-1;
             for(const [k,x0] of Object.entries(p.shares)){const x=Number(x0);if(Number.isFinite(x)&&x>v0){k0=k;v0=x;}}
-            const names={ref:'Reference',det:'Detector / SSPD',div:'Divider',vco:'VCO',lpf:'R1 / LPF'};
+            const isCP=appState.currentArch==='cppll';
+            const names={ref:'Ref',det:isCP?'PFD/CP':'SSPD/CP',div:'DIV',vco:'VCO',lpf:'LF'};
             return k0?{key:k0,label:names[k0]||k0,share:v0}:null;
         }
+
+        function currentSweepDesignSignature(){
+            const arch=appState.currentArch||'cppll';
+            const ids=[
+                'input-fref','input-fvco','input-kvco','input-pm','input-kpole',
+                'input-icp','input-avco','input-gm','input-tpul','input-manual-c2',
+                'input-ref-floor','input-ref-flicker',
+                'input-det-floor','input-det-flicker',
+                'input-div-floor','input-div-flicker',
+                'input-vco-1m','input-vco-flicker',
+                'input-jitter-fmin','input-jitter-fmax',
+                'input-sweep-fc-min','input-sweep-fc-max','input-sweep-step','input-sweep-pm-min'
+            ];
+            const vals=ids.map(id=>{
+                const e=dom[id]||document.getElementById(id);
+                return e?`${id}=${e.type==='checkbox'?(e.checked?1:0):e.value}`:'';
+            });
+            const enabled=appState.noise?.enabled||{};
+            return [arch,appState[arch]?.method||1,JSON.stringify(enabled),...vals].join('|');
+        }
+
+        function setSweepOutdatedState(){
+            if(!lastBandwidthSweep || !lastBandwidthSweepSignature){
+                setSweepResultFreshnessUI(false);
+                return false;
+            }
+            const stale=currentSweepDesignSignature()!==lastBandwidthSweepSignature;
+            setSweepResultFreshnessUI(stale);
+            const applyBtn=dom['btn-apply-sweep-best']||document.getElementById('btn-apply-sweep-best');
+            if(stale && applyBtn) applyBtn.disabled=true;
+            return stale;
+        }
+
+        function renderLiveCurrentDesign(){
+            const fcNow=parseFloat(dom['input-fc']?.value);
+            if(!Number.isFinite(fcNow)) return;
+            const cur=evaluateSweepPoint(fcNow);
+            if(cur) renderDesignValidity(cur,'Current design');
+            renderNoiseOptimizationAdvisor(lastBandwidthSweep);
+            setSweepOutdatedState();
+        }
+
         function renderNoiseOptimizationAdvisor(s){
             const body=dom['advisor-compare-body']||document.getElementById('advisor-compare-body'),
                   verdict=dom['advisor-verdict']||document.getElementById('advisor-verdict'),
                   diag=dom['advisor-diagnosis']||document.getElementById('advisor-diagnosis'),
                   valid=dom['advisor-validity']||document.getElementById('advisor-validity');
-            if(!body||!verdict||!diag||!valid||!s?.points?.length)return;
+            if(!body||!verdict||!diag||!valid)return;
             const fcNow=parseFloat(dom['input-fc']?.value);
             const cur=Number.isFinite(fcNow) ? evaluateSweepPoint(fcNow) : null;
-            const opt=s.best,cls=s.classification||{};
+            const opt=s?.best||null,cls=s?.classification||{};
+            const sweepStale=setSweepOutdatedState();
             const fref=parseFloat(dom['input-fref']?.value);
             const rc=cur&&fref>0?fref/cur.fcMHz:NaN,ro=opt&&fref>0?fref/opt.fcMHz:NaN;
             const jc=cur?.jitterSec,jo=opt?.jitterSec,imp=jc>0&&Number.isFinite(jo)?100*(jc-jo)/jc:NaN;
@@ -3942,7 +4352,8 @@
               ['C1',cur?`${advisorFmt(cur.C1*1e12,3)} pF`:'--',opt?`${advisorFmt(opt.C1*1e12,3)} pF`:'--'],
               ['C2',cur?`${advisorFmt(cur.C2*1e12,3)} pF`:'--',opt?`${advisorFmt(opt.C2*1e12,3)} pF`:'--']
             ];
-            const names={ref:'Reference',det:'Detector / SSPD',div:'Divider',vco:'VCO',lpf:'R1 / LPF'};
+            const isCP=appState.currentArch==='cppll';
+            const names={ref:'Ref',det:isCP?'PFD/CP':'SSPD/CP',div:'DIV',vco:'VCO',lpf:'LF'};
             for(const k of ['ref','det','div','vco','lpf']){
                 if(!(k in (cur?.shares||{}))&&!(k in (opt?.shares||{})))continue;
                 rows.push([`${names[k]} variance share`,
@@ -3952,8 +4363,13 @@
             body.innerHTML=rows.map(r=>`<tr class="border-t border-slate-800"><td class="p-2 text-slate-400">${r[0]}</td><td class="p-2 text-right text-slate-200">${r[1]}</td><td class="p-2 text-right text-slate-200">${r[2]}</td></tr>`).join('');
 
             verdict.classList.remove('opt-active-noise','opt-active-stability','opt-active-range');
-            verdict.classList.add(cls.key==='noise'?'opt-active-noise':cls.key==='stability'?'opt-active-stability':'opt-active-range');
-            verdict.textContent=cls.label||'Analysis';
+            if(!s?.points?.length){
+                verdict.classList.add('opt-active-range');
+                verdict.textContent='等待 Sweep';
+            }else{
+                verdict.classList.add(cls.key==='noise'?'opt-active-noise':cls.key==='stability'?'opt-active-stability':'opt-active-range');
+                verdict.textContent=cls.label||'Analysis';
+            }
 
             const dc=advisorDominant(cur),doo=advisorDominant(opt),m=[];
             if(cls.key==='range')m.push('最低 jitter 點仍位於 Sweep 邊界，因此只代表目前範圍內最佳點，不是已證明的 optimum。');
@@ -3978,7 +4394,174 @@
             valid.textContent=checks.join(' ');
         }
 
+
+        function validityBadgeClass(level){
+            return level==='ok'?'opt-active-noise':level==='warn'?'opt-active-stability':'opt-active-range';
+        }
+
+        function renderDesignValidity(design, sourceLabel='Current design') {
+            const card=dom['design-validity-card']||document.getElementById('design-validity-card');
+            const badge=dom['design-validity-status']||document.getElementById('design-validity-status');
+            const summary=dom['design-validity-summary']||document.getElementById('design-validity-summary');
+            const list=dom['design-validity-list']||document.getElementById('design-validity-list');
+            if(!card||!badge||!summary||!list||!design) return;
+
+            const frefMHz=parseFloat(dom['input-fref']?.value);
+            const fcTargetMHz=Number.isFinite(design.fcMHz)?design.fcMHz:
+                (Number.isFinite(design.targetFcHz)?design.targetFcHz/1e6:NaN);
+            const fcActualMHz=Number.isFinite(design.actualFcMHz)?design.actualFcMHz:
+                (Number.isFinite(design.actualFcHz)?design.actualFcHz/1e6:NaN);
+            const pm=Number(design.actualPM);
+            const fzMHz=Number.isFinite(design.fz)?design.fz/1e6:NaN;
+            const fpMHz=Number.isFinite(design.fp)?design.fp/1e6:NaN;
+            const R1=Number(design.R1), C1=Number(design.C1), C2=Number(design.C2);
+
+            const ratio=Number.isFinite(frefMHz)&&fcTargetMHz>0?frefMHz/fcTargetMHz:NaN;
+            const crossErr=fcTargetMHz>0&&Number.isFinite(fcActualMHz)?
+                100*Math.abs(fcActualMHz-fcTargetMHz)/fcTargetMHz:NaN;
+            const zeroRatio=Number.isFinite(fzMHz)&&fzMHz>0&&fcTargetMHz>0?fcTargetMHz/fzMHz:NaN;
+            const poleRatio=Number.isFinite(fpMHz)&&fcTargetMHz>0?fpMHz/fcTargetMHz:NaN;
+
+            const checks=[];
+
+            // fc/fref: deliberately "review", not absolute fail
+            if(Number.isFinite(ratio)){
+                if(ratio>80) checks.push({
+                    level:'warn', title:'Bandwidth ratio',
+                    value:`fc ≈ fref/${ratio.toFixed(1)}`,
+                    note:'Loop bandwidth 明顯偏窄。數學上可成立，但需確認 jitter 改善是否值得 capacitor area、leakage 與 settling time 代價。'
+                });
+                else if(ratio<8) checks.push({
+                    level:'warn', title:'Bandwidth ratio',
+                    value:`fc ≈ fref/${ratio.toFixed(1)}`,
+                    note:'Loop bandwidth 相對 reference 偏寬；需額外確認 sampled/discrete-time validity、spur 與 PVT stability。'
+                });
+                else checks.push({
+                    level:'ok', title:'Bandwidth ratio',
+                    value:`fc ≈ fref/${ratio.toFixed(1)}`,
+                    note:'Bandwidth 比例位於一般實務上常見的中間範圍；仍應以實際系統需求決定。'
+                });
+            }
+
+            if(Number.isFinite(crossErr)){
+                if(crossErr<=1) checks.push({
+                    level:'ok', title:'Unity-gain crossover',
+                    value:`Δfc = ${crossErr.toFixed(3)}%`,
+                    note:'Target fc 與數值求得的實際 0-dB crossover 高度一致。'
+                });
+                else if(crossErr<=5) checks.push({
+                    level:'warn', title:'Unity-gain crossover',
+                    value:`Δfc = ${crossErr.toFixed(2)}%`,
+                    note:'Target 與 Actual crossover 有可見差異；PM 與 noise shaping 應以 Actual crossover 解讀。'
+                });
+                else checks.push({
+                    level:'fail', title:'Unity-gain crossover',
+                    value:`Δfc = ${crossErr.toFixed(2)}%`,
+                    note:'Target 與 Actual crossover 差異偏大，建議重新檢查 synthesis assumptions 與 loop response。'
+                });
+            }
+
+            if(Number.isFinite(pm)){
+                if(pm>=55) checks.push({
+                    level:'ok', title:'Phase Margin',
+                    value:`${pm.toFixed(2)}°`,
+                    note:'Nominal PM 具良好裕度。'
+                });
+                else if(pm>=45) checks.push({
+                    level:'warn', title:'Phase Margin',
+                    value:`${pm.toFixed(2)}°`,
+                    note:'PM 尚可但裕度較低，建議再檢查 PVT / Monte Carlo。'
+                });
+                else checks.push({
+                    level:'fail', title:'Phase Margin',
+                    value:`${pm.toFixed(2)}°`,
+                    note:'Nominal stability margin 偏低，不建議只以此設計作為最終值。'
+                });
+            }
+
+            if(Number.isFinite(zeroRatio)&&Number.isFinite(poleRatio)){
+                const sensibleZero=zeroRatio>1.05;
+                const sensiblePole=poleRatio>1.05;
+                let level=(sensibleZero&&sensiblePole)?'ok':'warn';
+                checks.push({
+                    level, title:'Pole / zero placement',
+                    value:`fc/fz=${zeroRatio.toFixed(2)}, fp/fc=${poleRatio.toFixed(2)}`,
+                    note:(sensibleZero&&sensiblePole)?
+                        'Zero 位於 crossover 下方、higher pole 位於 crossover 上方，符合典型 lead compensation 配置。':
+                        'Pole/zero 與 crossover 的相對位置較接近或反轉，建議直接查看 Bode phase 與 PM。'
+                });
+            }
+
+            // Component scale checks are intentionally engineering reviews, not hard invalidity.
+            if(Number.isFinite(C1)&&Number.isFinite(C2)){
+                const maxC=Math.max(C1,C2)*1e12;
+                if(maxC>200) checks.push({
+                    level:'warn', title:'Capacitor scale',
+                    value:`max(C)=${maxC.toFixed(1)} pF`,
+                    note:'若為 fully on-chip loop filter，電容面積可能非常大；需評估是否接受或改採外接/架構調整。'
+                });
+                else if(maxC>50) checks.push({
+                    level:'warn', title:'Capacitor scale',
+                    value:`max(C)=${maxC.toFixed(1)} pF`,
+                    note:'電容已進入較大的 on-chip 尺度，建議評估面積與 leakage。'
+                });
+                else checks.push({
+                    level:'ok', title:'Capacitor scale',
+                    value:`max(C)=${maxC.toFixed(2)} pF`,
+                    note:'元件尺度未觸發大電容提醒。'
+                });
+            }
+
+            if(Number.isFinite(R1)){
+                const rk=R1/1e3;
+                if(rk<0.1 || rk>1000) checks.push({
+                    level:'warn', title:'Resistor scale',
+                    value:`R1=${rk.toFixed(3)} kΩ`,
+                    note:'R1 尺度較極端，建議確認 thermal noise、area、parasitic 與實現方式。'
+                });
+                else checks.push({
+                    level:'ok', title:'Resistor scale',
+                    value:`R1=${rk.toFixed(3)} kΩ`,
+                    note:'R1 尺度未觸發極端值提醒。'
+                });
+            }
+
+            const rank={ok:0,warn:1,fail:2};
+            let overall='ok';
+            for(const c of checks) if(rank[c.level]>rank[overall]) overall=c.level;
+
+            badge.classList.remove('opt-active-noise','opt-active-stability','opt-active-range');
+            badge.classList.add(validityBadgeClass(overall));
+            badge.textContent=overall==='ok'?'Valid':overall==='warn'?'Review':'Warning';
+
+            summary.textContent=
+                `${sourceLabel}：${overall==='ok'?'目前未發現明顯 validity 問題。':
+                overall==='warn'?'存在需要工程確認的條件，但不代表設計一定錯誤。':
+                '存在明顯需重新檢查的 nominal 條件。'}`;
+
+            list.innerHTML=checks.map(c=>{
+                const tone=c.level==='ok'?'text-emerald-300':c.level==='warn'?'text-amber-300':'text-rose-300';
+                return `<div class="rounded-lg border border-slate-800 bg-slate-900/55 p-2.5">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="font-semibold text-slate-200">${c.title}</div>
+                        <div class="${tone} font-bold">${c.value}</div>
+                    </div>
+                    <div class="mt-1 text-slate-400 leading-relaxed">${c.note}</div>
+                </div>`;
+            }).join('');
+        }
+
+
         function runBandwidthSweep() {
+            const jfmin=(Number.isFinite(parseFloat(dom['input-jitter-fmin']?.value))?parseFloat(dom['input-jitter-fmin'].value):12)*1e3;
+            const jfmax=(Number.isFinite(parseFloat(dom['input-jitter-fmax']?.value))?parseFloat(dom['input-jitter-fmax'].value):20)*1e6;
+            if(!(jfmax>jfmin) || !(jfmin>0)){
+                dom['bandwidth-sweep-status'].innerHTML='<strong class="text-rose-300">Jitter 積分範圍無效：</strong>請確認 fmax > fmin > 0 後再執行 Sweep。';
+                updateOptimumBadges(null);
+                if(dom['btn-apply-sweep-best']) dom['btn-apply-sweep-best'].disabled=true;
+                return;
+            }
+
             const lo=Math.max(0.01,parseFloat(dom['input-sweep-fc-min']?.value)||0.5);
             const hi=Math.max(lo+1e-9,parseFloat(dom['input-sweep-fc-max']?.value)||5);
             const requestedStep=Math.max(0.0001,parseFloat(dom['input-sweep-step']?.value)||0.001);
@@ -4037,6 +4620,8 @@
                 points:pts,best,sampledBest,rawBest,minPM,classification,
                 userLo:lo,userHi:hi,requestedStep_MHz:requestedStep,actualStep_MHz:grid.actualStep
             };
+            lastBandwidthSweepSignature=currentSweepDesignSignature();
+            renderDesignValidity(evaluateSweepPoint(parseFloat(dom['input-fc']?.value)), 'Current design');
             renderNoiseOptimizationAdvisor(lastBandwidthSweep);
 
             dom['sweep-best-jitter'].textContent=best
@@ -4048,10 +4633,7 @@
             if (dom['sweep-search-range']) dom['sweep-search-range'].textContent=`${lo.toFixed(3)}–${hi.toFixed(3)} MHz`;
             updateOptimumBadges(classification.key);
 
-            if (dom['sweep-result-freshness']) {
-                dom['sweep-result-freshness'].textContent='結果已更新';
-                dom['sweep-result-freshness'].className='text-[10px] text-emerald-300';
-            }
+            setSweepResultFreshnessUI(false);
 
             dom['btn-apply-sweep-best'].disabled=!best || !classification.recommended;
 
@@ -4064,27 +4646,6 @@
                 `只分析使用者指定範圍 <strong class="text-violet-300">${lo.toFixed(3)}–${hi.toFixed(3)} MHz</strong>；`+
                 `Δfc=<strong class="text-cyan-300">${grid.actualStep.toFixed(6)} MHz</strong>。`+
                 ` Raw jitter minimum=${rawBest?rawBest.fcMHz.toFixed(6):'--'} MHz；${label}=${best?best.fcMHz.toFixed(6):'--'} MHz。${capText}`;
-
-            const detail=dom['sweep-best-detail'];
-            detail.classList.remove('hidden');
-            if (!best) {
-                detail.innerHTML=`<strong class="text-rose-300">${classification.label}：</strong>${classification.note}`;
-            } else {
-                const slope=rawIdx>0 && rawIdx<pts.length-1 ? localSlope(pts,rawIdx) : null;
-                const slopeText=slope
-                    ? `<br><strong class="text-emerald-300">離散導數檢查：</strong>左 slope=${slope.left.toExponential(3)}，右 slope=${slope.right.toExponential(3)}；理想 minimum 應呈現左負、右正。`
-                    :'';
-                const names={ref:'Reference',det:appState.currentArch==='cppll'?'Detector / CP':'Detector / SSPD',lpf:'Loop Filter / R1',vco:'VCO',div:'Divider'};
-                const ks=Object.keys(best.shares||{})
-                    .filter(k=>(k!=='div'||appState.currentArch==='cppll')&&best.shares[k]>0)
-                    .sort((a,b)=>best.shares[b]-best.shares[a]).slice(0,3);
-
-                detail.innerHTML=
-                    `<strong class="${classification.recommended?'text-cyan-300':'text-amber-300'}">${classification.label}：</strong>${classification.note}`+
-                    `<br><strong class="text-slate-200">${label}：</strong>target fc=${best.fcMHz.toFixed(6)} MHz，actual |T|=1 crossover=${best.actualFcMHz.toFixed(6)} MHz，Actual PM=${best.actualPM.toFixed(2)}°。`+
-                    slopeText+
-                    `<br><strong class="text-violet-300">主要 jitter variance：</strong>${ks.map(k=>`${names[k]} ${best.shares[k].toFixed(1)}%`).join('、')}。`;
-            }
 
             renderBandwidthSweepChart(pts,best,sampledBest,minPM);
         }
@@ -4126,6 +4687,10 @@
 
         function applyBestSweepFc() {
             if (!lastBandwidthSweep?.best || !dom['input-fc']) return;
+            if (setSweepOutdatedState()) {
+                dom['bandwidth-sweep-status'].innerHTML='<strong class="text-rose-300">Optimum Candidate 已過期。</strong> 請先重新執行 Sweep，再決定是否套用。';
+                return;
+            }
             if (!lastBandwidthSweep.classification?.recommended) {
                 dom['bandwidth-sweep-status'].innerHTML = '<strong class="text-amber-300">目前結果尚未通過 Recommendation 判定，已禁止直接套用。</strong> 請先擴大 Sweep 範圍，直到 refined optimum 不再貼住邊界。';
                 return;
@@ -4144,7 +4709,7 @@
             const isCP = (currentArch === 'cppll');
             const noiseMode = appState.noise.mode || 'estimate';
             const enabled = appState.noise.enabled || { ref:true, det:true, lpf:true, vco:true, div:true };
-            const strictCoverage = appState.noise.strictCoverage !== false;
+            const strictCoverage = noiseMode === 'cadence' && appState.noise.strictCoverage !== false;
             const autoYScale = appState.noise.autoYScale !== false;
             const refFloorDB = Number.isFinite(parseFloat(dom['input-ref-floor'].value)) ? parseFloat(dom['input-ref-floor'].value) : -155;
             const refFlickerHz = Math.max(0, parseFloat(dom['input-ref-flicker']?.value) || 0) * 1e3;
@@ -4154,8 +4719,11 @@
             const vcoFlickerHz = Math.max(0, parseFloat(dom['input-vco-flicker']?.value) || 0) * 1e3;
             const divFloorDB = Number.isFinite(parseFloat(dom['input-div-floor']?.value)) ? parseFloat(dom['input-div-floor'].value) : -150;
             const divFlickerHz = Math.max(0, parseFloat(dom['input-div-flicker']?.value) || 0) * 1e3;
-            const fmin_int = (parseFloat(dom['input-jitter-fmin'].value) || 12) * 1e3;
-            const fmax_int = (parseFloat(dom['input-jitter-fmax'].value) || 20) * 1e6;
+            const rawFmin_kHz = parseFloat(dom['input-jitter-fmin'].value);
+            const rawFmax_MHz = parseFloat(dom['input-jitter-fmax'].value);
+            const fmin_int = Math.max(1, (Number.isFinite(rawFmin_kHz) ? rawFmin_kHz : 12) * 1e3);
+            const fmax_int = Math.max(1, (Number.isFinite(rawFmax_MHz) ? rawFmax_MHz : 20) * 1e6);
+            const validJitterRange = fmax_int > fmin_int;
 
             dom['label-jitter-range'].innerText = `${(fmin_int/1e3).toFixed(1)} kHz ~ ${(fmax_int/1e6).toFixed(1)} MHz`;
 
@@ -4244,10 +4812,10 @@
             const allLoadedGroups = contributionKeys.filter(k => imported[k].length>=2);
             const allEnabledLoaded = noiseMode !== 'cadence' || (enabledGroups.length>0 && enabledGroups.every(k => imported[k].length>=2));
             const fullyCovered = noiseMode !== 'cadence' || (allEnabledLoaded && enabledGroups.every(k => imported[k][0].f <= fmin_int && imported[k][imported[k].length-1].f >= fmax_int));
-            const mayIntegrate = noiseMode !== 'cadence' || (loadedEnabledGroups.length>0 && (!strictCoverage || fullyCovered));
+            const mayIntegrate = validJitterRange && (noiseMode !== 'cadence' || (loadedEnabledGroups.length>0 && (!strictCoverage || fullyCovered)));
 
             // Integrate each independent contribution separately; variances add.
-            const finePoints=1000, logFmin=Math.log10(fmin_int), logFmax=Math.log10(fmax_int), dLog=(logFmax-logFmin)/(finePoints-1);
+            const finePoints=1000, logFmin=validJitterRange?Math.log10(fmin_int):0, logFmax=validJitterRange?Math.log10(fmax_int):0, dLog=(logFmax-logFmin)/(finePoints-1);
             const variance={ref:0,det:0,lpf:0,vco:0,div:0};
             if(mayIntegrate){
                 let prevF=null, prev={ref:0,det:0,lpf:0,vco:0,div:0};
@@ -4274,7 +4842,7 @@
             }
 
             // Integrated contribution budget.
-            const labelsMap={ref:'Reference',det:isCP?'Detector / CP':'Detector / SSPD',lpf:'Loop Filter / R1',vco:'VCO',div:'Divider'};
+            const labelsMap={ref:'Ref',det:isCP?'PFD/CP':'SSPD/CP',lpf:'LF',vco:'VCO',div:'DIV'};
             if(dom['jitter-budget-body']){
                 let rows='';
                 contributionKeys.forEach(k=>{
@@ -4289,8 +4857,8 @@
                 dom['jitter-budget-body'].innerHTML=rows;
             }
             if(dom['jitter-budget-status']){
-                dom['jitter-budget-status'].textContent = hasJitterData ? '積分完成' : (noiseMode==='cadence' && strictCoverage && !fullyCovered ? '資料範圍不完整' : '無有效資料');
-                dom['jitter-budget-status'].className = hasJitterData?'text-[9px] text-emerald-400':'text-[9px] text-amber-400';
+                dom['jitter-budget-status'].textContent = !validJitterRange ? '積分範圍無效 (fmax ≤ fmin)' : (hasJitterData ? '積分完成' : (noiseMode==='cadence' && strictCoverage && !fullyCovered ? '資料範圍不完整' : '無有效資料'));
+                dom['jitter-budget-status'].className = hasJitterData?'text-[9px] text-emerald-400':(!validJitterRange?'text-[9px] text-rose-400':'text-[9px] text-amber-400');
             }
 
             if(noiseMode==='cadence' && dom['pnoise-import-summary']){
@@ -4322,7 +4890,7 @@
             }
             const cumulativeDataset={label:'Cumulative RMS Jitter',data:cumulativeData,borderColor:'#e879f9',backgroundColor:'rgba(232,121,249,0.09)',borderWidth:2.2,pointRadius:0,tension:0.08,fill:true,spanGaps:false};
             if(!cumulativeJitterChart && dom['cumulativeJitterChart']){
-                cumulativeJitterChart=new Chart(dom['cumulativeJitterChart'].getContext('2d'),{type:'line',data:{datasets:[cumulativeDataset]},options:{responsive:true,maintainAspectRatio:false,parsing:false,interaction:{mode:'nearest',intersect:false},scales:{x:{type:'logarithmic',min:fmin_int,max:fmax_int,title:{display:true,text:'Upper Integration Frequency (Hz)',color:'#94a3b8',font:{size:10}},grid:{color:'rgba(51,65,85,0.35)'},ticks:{color:'#94a3b8',font:{size:9,family:'monospace'},callback:v=>{const n=Number(v),lg=Math.log10(n);return Number.isFinite(lg)&&Math.abs(lg-Math.round(lg))<1e-10?freqLabel(n):'';}}},y:{beginAtZero:true,title:{display:true,text:'Cumulative RMS Jitter (fs)',color:'#e879f9',font:{size:10,weight:'bold'}},grid:{color:'rgba(51,65,85,0.35)'},ticks:{color:'#94a3b8',font:{size:9}}}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f172a',borderColor:'#334155',borderWidth:1,padding:8,callbacks:{title:items=>items.length?freqLabel(items[0].parsed.x):'',label:c=>`RMS Jitter: ${c.parsed.y>=1000?(c.parsed.y/1000).toFixed(2)+' ps':c.parsed.y.toFixed(1)+' fs'}`}}}}});
+                cumulativeJitterChart=new Chart(dom['cumulativeJitterChart'].getContext('2d'),{type:'line',data:{datasets:[cumulativeDataset]},options:{responsive:true,maintainAspectRatio:false,parsing:false,interaction:{mode:'index',intersect:false},scales:{x:{type:'logarithmic',min:fmin_int,max:fmax_int,title:{display:true,text:'Upper Integration Frequency (Hz)',color:'#94a3b8',font:{size:10}},grid:{color:'rgba(51,65,85,0.35)'},ticks:{color:'#94a3b8',font:{size:9,family:'monospace'},callback:v=>{const n=Number(v),lg=Math.log10(n);return Number.isFinite(lg)&&Math.abs(lg-Math.round(lg))<1e-10?freqLabel(n):'';}}},y:{beginAtZero:true,title:{display:true,text:'Cumulative RMS Jitter (fs)',color:'#e879f9',font:{size:10,weight:'bold'}},grid:{color:'rgba(51,65,85,0.35)'},ticks:{color:'#94a3b8',font:{size:9}}}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f172a',borderColor:'#334155',borderWidth:1,padding:8,callbacks:{title:items=>items.length?freqLabel(items[0].parsed.x):'',label:c=>`RMS Jitter: ${c.parsed.y>=1000?(c.parsed.y/1000).toFixed(2)+' ps':c.parsed.y.toFixed(1)+' fs'}`}}}}});
             } else if(cumulativeJitterChart){
                 cumulativeJitterChart.data.datasets=[cumulativeDataset]; cumulativeJitterChart.options.scales.x.min=fmin_int; cumulativeJitterChart.options.scales.x.max=fmax_int; cumulativeJitterChart.update('none');
             }
@@ -4332,7 +4900,7 @@
                 const fcHz=(parseFloat(dom['input-fc'].value)||1.875)*1e6;
                 const clampF=f=>Math.max(1e3,Math.min(1e8,f));
                 const probes=[['帶內',clampF(fcHz/10),'迴路增益通常較高，主要觀察 reference / detector contribution。'],['交越附近',clampF(fcHz),'STF 與 VCO NTF 進入交接區，最適合檢查 noise crossover。'],['帶外',clampF(fcHz*10),'回授抑制逐漸失效，通常需特別注意 VCO contribution。']];
-                const sourceNames={ref:'Reference',det:isCP?'Detector / CP':'Detector / SSPD',lpf:'Loop Filter / R1',vco:'VCO',div:'Divider'};
+                const sourceNames={ref:'Ref',det:isCP?'PFD/CP':'SSPD/CP',lpf:'LF',vco:'VCO',div:'DIV'};
                 const sourceTextClass={ref:'text-cyan-300',det:'text-blue-300',lpf:'text-emerald-300',vco:'text-amber-300',div:'text-violet-300'};
                 dom['noise-dominance-cards'].innerHTML=probes.map(([zone,f,note])=>{
                     const probeComplete = noiseMode !== 'cadence' || enabledGroups.every(k => imported[k].length>=2 && imported[k][0].f <= f && imported[k][imported[k].length-1].f >= f);
@@ -4345,23 +4913,107 @@
                 }).join('');
             }
 
+
+            const renderPNoiseCursorAtIndex=(chart,dataIndex)=>{
+                const freqEl=dom['pnoise-cursor-freq']||document.getElementById('pnoise-cursor-freq');
+                const valuesEl=dom['pnoise-cursor-values']||document.getElementById('pnoise-cursor-values');
+                if(!freqEl||!valuesEl||!chart) return;
+
+                const rows=[];
+                let freq=null;
+                chart.data.datasets.forEach(ds=>{
+                    const p=ds.data?.[dataIndex];
+                    if(!p||!Number.isFinite(Number(p.x))||!Number.isFinite(Number(p.y))) return;
+                    if(freq===null) freq=Number(p.x);
+                    const color=typeof ds.borderColor==='string'?ds.borderColor:'#94a3b8';
+                    rows.push(`<div class="flex items-center justify-between gap-2 rounded-md bg-slate-900/55 px-2 py-1.5">
+                        <span class="flex items-center gap-1.5 min-w-0 text-slate-300">
+                            <span class="w-2 h-2 rounded-full shrink-0" style="background:${color}"></span>
+                            <span class="truncate">${ds.label}</span>
+                        </span>
+                        <span class="font-mono font-semibold text-slate-100 whitespace-nowrap">${Number(p.y).toFixed(1)} dBc/Hz</span>
+                    </div>`);
+                });
+
+                freqEl.textContent=freq!==null?freqLabel(freq):'--';
+                valuesEl.innerHTML=rows.length?rows.join(''):'<div class="text-slate-500">此頻率沒有有效資料。</div>';
+            };
+
+            const clearPNoiseCursorReadout=(chart)=>{
+                const freqEl=dom['pnoise-cursor-freq']||document.getElementById('pnoise-cursor-freq');
+                const valuesEl=dom['pnoise-cursor-values']||document.getElementById('pnoise-cursor-values');
+                if(freqEl) freqEl.textContent='--';
+                if(valuesEl) valuesEl.innerHTML='<div class="text-slate-500 leading-relaxed">將游標移到圖上，可在此同時查看該 offset frequency 的所有曲線數值。</div>';
+                if(chart) chart.$pnoiseCursorIndex=null;
+            };
+
+            const installPNoiseCursorHandlers=(chart)=>{
+                const canvas=chart?.canvas;
+                if(!canvas||canvas.dataset.cursorReadoutBound==='1') return;
+                canvas.dataset.cursorReadoutBound='1';
+                chart.$pnoiseCursorIndex=null;
+
+                canvas.addEventListener('mousemove',ev=>{
+                    if(!chart?.scales?.x||!chart.chartArea) return;
+                    const rect=canvas.getBoundingClientRect();
+                    const scaleX=canvas.width/rect.width;
+                    const scaleY=canvas.height/rect.height;
+                    const px=(ev.clientX-rect.left)*scaleX;
+                    const py=(ev.clientY-rect.top)*scaleY;
+                    const area=chart.chartArea;
+
+                    if(px<area.left||px>area.right||py<area.top||py>area.bottom){
+                        clearPNoiseCursorReadout(chart);
+                        return;
+                    }
+
+                    const cursorFreq=chart.scales.x.getValueForPixel(px);
+                    if(!(cursorFreq>0)) return;
+
+                    const refData=chart.data.datasets?.[0]?.data||[];
+                    if(!refData.length) return;
+
+                    const logF=Math.log10(cursorFreq);
+                    let bestIndex=-1,bestDist=Infinity;
+                    for(let i=0;i<refData.length;i++){
+                        const f=Number(refData[i]?.x);
+                        if(!(f>0)) continue;
+                        const d=Math.abs(Math.log10(f)-logF);
+                        if(d<bestDist){bestDist=d;bestIndex=i;}
+                    }
+
+                    // Only redraw when the selected X-grid point actually changes.
+                    // This prevents the synchronized markers from flickering while the
+                    // mouse moves inside the same frequency cell.
+                    if(bestIndex>=0 && bestIndex!==chart.$pnoiseCursorIndex){
+                        chart.$pnoiseCursorIndex=bestIndex;
+                        renderPNoiseCursorAtIndex(chart,bestIndex);
+                    }
+                });
+
+                canvas.addEventListener('mouseleave',()=>clearPNoiseCursorReadout(chart));
+            };
+
             const datasetDefs=[
-                ['Total Phase Noise',chartSeries.total,'#f43f5e',2.6,[]],
-                ['Ref Clock',chartSeries.ref,'#38bdf8',1.5,[4,3]],
-                ['Detector / CP / SSPD',chartSeries.det,'#60a5fa',1.5,[2,2]],
-                ['Filter R1 Thermal',chartSeries.lpf,'#34d399',1.5,[5,4]],
+                ['Total',chartSeries.total,'#f43f5e',2.6,[]],
+                ['Ref',chartSeries.ref,'#38bdf8',1.5,[4,3]],
+                [isCP?'PFD/CP':'SSPD/CP',chartSeries.det,'#60a5fa',1.5,[2,2]],
+                ['LF',chartSeries.lpf,'#34d399',1.5,[5,4]],
                 ['VCO',chartSeries.vco,'#fbbf24',1.5,[6,3]],
-                ...(isCP ? [['Divider',chartSeries.div,'#a78bfa',1.5,[3,3]]] : [])
+                ...(isCP ? [['DIV',chartSeries.div,'#a78bfa',1.5,[3,3]]] : [])
             ];
-            const datasets=datasetDefs.map(([label,data,color,width,dash],idx)=>({label,data,borderColor:color,backgroundColor:idx===0?'rgba(244,63,94,0.08)':'transparent',borderWidth:width,borderDash:dash,pointRadius:0,tension:0.08,fill:idx===0,spanGaps:false}));
+            const datasets=datasetDefs.map(([label,data,color,width,dash],idx)=>({label,data,borderColor:color,backgroundColor:idx===0?'rgba(244,63,94,0.08)':'transparent',borderWidth:width,borderDash:dash,pointRadius:0,pointHoverRadius:4,pointHoverBackgroundColor:color,tension:0.08,fill:idx===0,spanGaps:false}));
             let yMin=-160,yMax=-50;
             if(autoYScale && allDb.length){ yMin=Math.floor((Math.min(...allDb)-8)/10)*10; yMax=Math.ceil((Math.max(...allDb)+8)/10)*10; if(yMax-yMin<40){const mid=(yMax+yMin)/2;yMin=Math.floor((mid-20)/10)*10;yMax=Math.ceil((mid+20)/10)*10;} }
 
             if(!pnoiseChart){
                 const ctx=dom['pnoiseChart'].getContext('2d');
-                pnoiseChart=new Chart(ctx,{type:'line',data:{datasets},options:{responsive:true,maintainAspectRatio:false,parsing:false,interaction:{mode:'nearest',intersect:false},scales:{x:{type:'logarithmic',min:1e3,max:1e8,title:{display:true,text:'Offset Frequency (Hz)',color:'#94a3b8',font:{size:10}},grid:{color:'rgba(51,65,85,0.35)'},ticks:{color:'#94a3b8',font:{size:9.5,family:'monospace'},maxRotation:0,minRotation:0,callback:v=>{const n=Number(v);const lg=Math.log10(n);return Number.isFinite(lg)&&Math.abs(lg-Math.round(lg))<1e-10?freqLabel(n):'';}}},y:{type:'linear',min:yMin,max:yMax,title:{display:true,text:'Phase Noise L(f) (dBc/Hz)',color:'#f43f5e',font:{size:10.5,weight:'bold'}},grid:{color:'rgba(51,65,85,0.35)'},ticks:{color:'#94a3b8',font:{size:9.5}}}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f172a',borderColor:'#334155',borderWidth:1,padding:8,callbacks:{title:items=>items.length?freqLabel(items[0].parsed.x):'',label:c=>`${c.dataset.label}: ${Number(c.parsed.y).toFixed(1)} dBc/Hz`}}}}});
+                pnoiseChart=new Chart(ctx,{type:'line',data:{datasets},options:{responsive:true,maintainAspectRatio:false,parsing:false,interaction:{mode:'index',intersect:false},scales:{x:{type:'logarithmic',min:1e3,max:1e8,title:{display:true,text:'Offset Frequency (Hz)',color:'#94a3b8',font:{size:10}},grid:{color:'rgba(51,65,85,0.35)'},ticks:{color:'#94a3b8',font:{size:9.5,family:'monospace'},maxRotation:0,minRotation:0,callback:v=>{const n=Number(v);const lg=Math.log10(n);return Number.isFinite(lg)&&Math.abs(lg-Math.round(lg))<1e-10?freqLabel(n):'';}}},y:{type:'linear',min:yMin,max:yMax,title:{display:true,text:'Phase Noise L(f) (dBc/Hz)',color:'#f43f5e',font:{size:10.5,weight:'bold'}},grid:{color:'rgba(51,65,85,0.35)'},ticks:{color:'#94a3b8',font:{size:9.5}}}},plugins:{legend:{display:false},tooltip:{enabled:false}}}});
+                installPNoiseCursorHandlers(pnoiseChart);
             } else {
                 pnoiseChart.data.datasets=datasets; pnoiseChart.options.scales.y.min=yMin; pnoiseChart.options.scales.y.max=yMax; pnoiseChart.options.scales.x.ticks.callback=v=>{const n=Number(v);const lg=Math.log10(n);return Number.isFinite(lg)&&Math.abs(lg-Math.round(lg))<1e-10?freqLabel(n):'';}; pnoiseChart.update('none');
+                installPNoiseCursorHandlers(pnoiseChart);
+                clearPNoiseCursorReadout(pnoiseChart);
             }
         }
 
@@ -4600,6 +5252,7 @@
             updateFcChips();
             setupSteppers();
             setupPNoiseDropZone();
+            setupEstimateParamHelp();
             updatePNoiseStatuses();
             renderPendingPNoiseFiles();
 
@@ -4616,6 +5269,8 @@
             calculate();
             typesetMath();
         });
-    </script>
+    
+
+</script>
 </body>
 </html>
