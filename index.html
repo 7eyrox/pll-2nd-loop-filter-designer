@@ -550,12 +550,12 @@
                     <div id="method-selector-container">
                         <div class="grid grid-cols-2 gap-2">
                             <button type="button" onclick="setMethod(1)" id="btn-m1" class="px-2.5 py-2 text-xs font-medium rounded-lg border transition-all duration-200 text-center border-cyan-500/80 bg-cyan-950/40 text-cyan-300 font-semibold shadow-sm shadow-cyan-950">
-                                <span id="text-m1-title">Approach 1: 最大 PM 綜合法</span><br>
-                                <span id="text-m1-sub" class="text-[10px] text-slate-400 font-normal">Banerjee/Gardner 最佳極點</span>
+                                <span id="text-m1-title">Method 1 : MAX P.M.</span><br>
+                                <span id="text-m1-sub" class="text-[10px] text-slate-400 font-normal">Optimal Pole.</span>
                             </button>
                             <button type="button" onclick="setMethod(2)" id="btn-m2" class="px-2.5 py-2 text-xs font-medium rounded-lg border transition-all duration-200 text-center border-slate-800 bg-slate-900/80 text-slate-400 hover:text-slate-200">
-                                <span id="text-m2-title">Approach 2: 指定極點倍數</span><br>
-                                <span id="text-m2-sub" class="text-[10px] text-slate-400 font-normal"><i>f</i><sub>pole</sub> = <i>k</i> &middot; <i>f</i><sub>c</sub> 配置</span>
+                                <span id="text-m2-title">Method 2 : Specify Pole.</span><br>
+                                <span id="text-m2-sub" class="text-[10px] text-slate-400 font-normal"><i>f</i><sub>pole</sub> = <i>k</i> &middot; <i>f</i><sub>c</sub></span>
                             </button>
                         </div>
                     </div>
@@ -567,8 +567,7 @@
                         <h2 class="text-xs sm:text-sm font-bold text-slate-100 flex items-center gap-2">
                             <i class="fa-solid fa-gear text-cyan-400"></i> 電路系統規格參數
                         </h2>
-                        <div class="flex flex-wrap items-center justify-end gap-1.5">
-                            <span id="system-preset-status" class="text-[9.5px] text-slate-500 mr-0.5">內建 Default</span>
+                        <div class="flex flex-wrap items-center justify-end gap-1.5">           
                             <button type="button" id="btn-system-default" onclick="restoreSystemDefaults()" class="px-2 py-1 rounded-md text-[9.5px] font-bold border border-slate-700 bg-slate-900 text-slate-300 hover:text-cyan-300 hover:border-cyan-700 transition" title="恢復目前架構的初始值；若尚未自訂，則使用網頁內建值">
                                 <i class="fa-solid fa-rotate-left mr-1"></i>Default
                             </button>
@@ -1248,7 +1247,7 @@
                                 </div>
                                 <div id="pnoise-cursor-panel" class="h-full min-h-[120px] bg-slate-950/70 border border-slate-800 rounded-xl p-3 flex flex-col">
                                     <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
-                                        <span class="text-[10.5px] font-bold text-slate-200"><i class="fa-solid fa-crosshairs text-cyan-400 mr-1"></i>游標讀值</span>
+                                        <span class="text-[10.5px] font-bold text-slate-200"><i class="fa-solid fa-crosshairs text-cyan-400 mr-1"></i>Offset Frequency</span>
                                         <span id="pnoise-cursor-freq" class="text-[9.5px] font-mono text-cyan-300">--</span>
                                     </div>
                                     <div id="pnoise-cursor-values" class="mt-2 space-y-1.5 text-[10px]">
@@ -1315,7 +1314,7 @@
                                 </div>
                                 <div class="sweep-run-button-wrap flex items-end">
                                     <button type="button" onclick="runBandwidthSweep()" class="w-full px-2.5 py-2 rounded-lg font-bold bg-cyan-950/70 border border-cyan-600 text-cyan-100 hover:bg-cyan-900/70">
-                                        <i class="fa-solid fa-play mr-1"></i>執行 Sweep
+                                        <i class="fa-solid fa-play mr-1"></i>Sweep
                                     </button>
                                 </div>
                             </div>
@@ -1380,7 +1379,7 @@
                                     </div>
                                 </div>
                                 <div id="advisor-stale-warning" class="hidden rounded-lg border border-rose-700/70 bg-rose-950/35 px-3 py-2 text-[10.5px] font-semibold text-rose-300">
-                                    <i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Optimum Candidate 已過期；Current Design 已即時更新，請重新執行 Sweep 後再比較或套用。
+                                    <i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Optimum Candidate 已過期，請重新執行 Sweep 後再比較或套用。
                                 </div>
                                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">
                                     <div class="overflow-x-auto rounded-lg border border-slate-800">
@@ -2048,7 +2047,7 @@
 
     <!-- Footer -->
     <footer class="bg-[#0f172a] border-t border-slate-800/80 py-2.5 text-center text-xs text-slate-400 flex-shrink-0">
-        <p>PLL 2nd Loop Filter Designer &copy; 2026. Academic &amp; Research Tool. <span class="text-slate-500">v63 — Roomier CPPLL 3x3 grid while preserving SSPLL alignment</span></p>
+        <p>PLL 2nd Loop Filter Designer &copy; 2026. Academic &amp; Research Tool.</p>
     </footer>
 
     <!-- Optimized Logic & Reactive Controller Script -->
@@ -3399,14 +3398,14 @@
             const isCP = (currentArch === 'cppll');
 
             if (isCP) {
-                dom['text-m1-title'].innerText = "Approach 1: 最大 PM 綜合法";
-                dom['text-m1-sub'].innerText = "Banerjee/Gardner 最佳極點";
-                dom['text-m2-title'].innerText = "Approach 2: 指定極點倍數";
-                dom['text-m2-sub'].innerHTML = "<i>f</i><sub>pole</sub> = <i>k</i> &middot; <i>f</i><sub>c</sub> 配置";
+                dom['text-m1-title'].innerText = "Method 1 : Max P.M.";
+                dom['text-m1-sub'].innerText = "Optimal Pole.";
+                dom['text-m2-title'].innerText = "Method 2 : Specify Pole.";
+                dom['text-m2-sub'].innerHTML = "<i>f</i><sub>pole</sub> = <i>k</i> &middot; <i>f</i><sub>c</sub>";
             } else {
-                dom['text-m1-title'].innerText = "Approach 1: 簡化模型";
+                dom['text-m1-title'].innerText = "Method 1 : 簡化模型";
                 dom['text-m1-sub'].innerHTML = "動態自選 <i>C</i><sub>2</sub> 驗證";
-                dom['text-m2-title'].innerText = "Approach 2: 完整綜合法";
+                dom['text-m2-title'].innerText = "Method 2 : 完整綜合";
                 dom['text-m2-sub'].innerHTML = "考慮 <i>C</i><sub>2</sub> 嚴格聯立解";
             }
 
@@ -3438,7 +3437,7 @@
                 dom['verification-card'].classList.remove('hidden');
                 dom['label-c2-source'].innerText = (m === 1) ? "最佳化合成值" : "精準配置值";
             } else {
-                dom['badge-method'].innerText = (m === 1) ? "SSPLL Approach 1: 簡化模型 (自選 C2 驗證模式)" : "SSPLL Approach 2: 完整綜合法 (考慮 C2 嚴格解)";
+                dom['badge-method'].innerText = (m === 1) ? "SSPLL Method 1 : 簡化模型 (自選 C2 驗證模式)" : "SSPLL Method 2 : 完整綜合 (考慮 C2 嚴格解)";
                 dom['c2-manual-container'].classList.toggle('hidden', m !== 1);
                 dom['fpole-setting-row'].classList.toggle('hidden', m === 1);
                 dom['verification-card'].classList.toggle('hidden', m === 2);
