@@ -1784,7 +1784,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
                                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
                                     <span class="text-amber-400 font-bold block text-sm">VCO 的雙重身分</span>
-                                    <p><strong>① 受控轉換機器（控制端 \(V_{\text{ctrl}}\)）：</strong>STF 的訊號走這條路。理想情況下將電壓線性積分為相位，轉移增益為 \(\frac{K_{\text{VCO}}}{s}\)。</p>
+                                    <p><strong>① 受控轉換機器（控制端 \(V_{\text{ctrl}}\)）：</strong>STF 的訊號走這條路。理想情況下將與控制電壓成線性正比的輸出頻率積分為相位，轉移增益為 \(\frac{K_{\text{VCO}}}{s}\)。</p>
                                     <p><strong>② 自發物理擾動發電機（諧振腔內部）：</strong>即使將控制電壓定死（接理想乾電池），內部的電晶體溝道熱雜訊與閃爍雜訊仍在撞擊震盪核心，無中生有產生隨機抖動 \(\Phi_{\text{VCO,noise}}\)。<strong>這就是為什麼不能只看控制端，必須單獨替它推導 NTF！</strong></p>
                                 </div>
                                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
