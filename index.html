@@ -27,6 +27,15 @@
     'use strict';
     const clone=v=>JSON.parse(JSON.stringify(v));
     const inputs=()=>Object.fromEntries(Array.from(document.querySelectorAll('input[id],select[id],textarea[id]')).filter(e=>e.type!=='file'&&!/^(design-notes-|compare-)/.test(e.id)).map(e=>[e.id,/^(checkbox|radio)$/.test(e.type)?e.checked:e.value]));
+    function relevantInputs(values,kind){
+        return Object.fromEntries(Object.entries(values).filter(([id])=>{
+            // Readouts and auxiliary controls do not change either saved result.
+            if(/^(display-|calc-gm-|input-sweep-|cp-vctrl-select$|toggle-auto-y$)/.test(id))return false;
+            if(kind==='analysis')return !/^(lock-|cp-(?:iup|idn|vknee)-|sscp-)/.test(id);
+            // Noise sources and jitter settings do not affect lock transient.
+            return !/^(input-(?:ref-|det-|div-|vco-1m|vco-flicker|jitter-)|enable-pnoise-|pnoise-map-|toggle-strict-coverage$)/.test(id);
+        }));
+    }
     const snapshot=(state,filter,vco)=>({timestamp:new Date().toISOString(),architecture:state.currentArch,inputs:inputs(),state:clone(state),filter:clone(filter),vco:clone(vco)});
     const md=v=>String(v??'未取得').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/([\\`*_\[\]|])/g,'\\$1').replace(/[\r\n]+/g,' ');
     const num=(v,s=1)=>typeof v==='number'&&Number.isFinite(v)?Number((v*s).toPrecision(7)).toString():'未取得';
@@ -77,9 +86,9 @@
     function filterRows(s){const f=s.filter;return [['R1',num(f.R1_ohm??f.R1,1e-3),'kΩ'],['C1',num(f.C1_F??f.C1,1e12),'pF'],['C2',num(f.C2_F??f.C2,1e12),'pF'],['fREF',num(f.fREF_Hz??f.fref,1e-6),'MHz'],['fVCO',num(f.fVCO_Hz??f.fvco,1e-9),'GHz'],['除頻比 N',num(f.N),'—'],...(f.fc_Hz!==undefined?[['設計 fc',num(f.fc_Hz,1e-6),'MHz'],['零點',num(f.fzero_Hz,1e-3),'kHz'],['極點',num(f.fpole_Hz,1e-6),'MHz'],['fc 處相位裕度',num(f.phaseMarginAtFc_deg),'°']]:[])];}
     function tuningRows(s){const first=s.vco[0],last=s.vco[s.vco.length-1];return [['VCTRL 表格範圍',first&&last?`${num(first[0])} – ${num(last[0])}`:'未取得','V'],['VCO 頻率端點',first&&last?`${num(first[1],1e-9)} – ${num(last[1],1e-9)}`:'未取得','GHz'],['Tuning table 點數',s.vco.length,'點']];}
     const api={analysis:null,transient:null,noise:null,bode:[],currentContext:()=>null,getNotes:()=>({}),formatTime,
-        stale(s){const current=this.currentContext();return JSON.stringify(inputs())!==JSON.stringify(s.inputs)||(current!==null&&(current.architecture!==s.architecture||JSON.stringify(current.vcoTable)!==JSON.stringify(s.vco)));},
-        captureAnalysis(state,filter,vco){this.analysis={...snapshot(state,filter,vco),noise:clone(this.noise),bode:clone(this.bode)};},
-        beginTransient(state,filter,vco,effective){return {...snapshot(state,filter,vco),effective:clone(effective)};},
+        stale(s){const current=this.currentContext(),kind=s.kind||'analysis';return JSON.stringify(relevantInputs(inputs(),kind))!==JSON.stringify(relevantInputs(s.inputs,kind))||(current!==null&&(current.architecture!==s.architecture||JSON.stringify(current.vcoTable)!==JSON.stringify(s.vco)));},
+        captureAnalysis(state,filter,vco){this.analysis={...snapshot(state,filter,vco),kind:'analysis',noise:clone(this.noise),bode:clone(this.bode)};},
+        beginTransient(state,filter,vco,effective){return {...snapshot(state,filter,vco),kind:'transient',effective:clone(effective)};},
         finishTransient(run,lockTime,status,incomplete,v,f,p){this.transient={...run,lockTime,status,incomplete,curves:clone([v,f,p])};},
         report(a=this.analysis,t=this.transient){
             const n=a?.noise?.summary,e=t?.effective;
